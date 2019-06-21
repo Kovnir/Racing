@@ -49,7 +49,7 @@ public class CarController : MonoBehaviour
     }
     */
 
-    private bool stop;
+    public bool stop;
     public float stopForce;
 
 
@@ -63,8 +63,14 @@ public class CarController : MonoBehaviour
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
         var locVel = transform.InverseTransformDirection(rigidbody.velocity);
-        Debug.Log(locVel);
         stop = Input.GetAxis("Vertical") < 0 && (locVel.z > 0);
+        if (!stop)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                stop = true;
+            }
+        }
     }
 
     private void Steer()
@@ -75,7 +81,15 @@ public class CarController : MonoBehaviour
 
         if (stop)
         {
+            rearDriverW.brakeTorque = stopForce;
+            rearPassengerW.brakeTorque = stopForce;
             //            rigidbody.AddForce(transform.forward * stopForce);
+        }
+        else
+        {
+            rearDriverW.brakeTorque = 0;
+            rearPassengerW.brakeTorque = 0;
+            //
         }
         
     }
