@@ -51,7 +51,7 @@ public class CarController : MonoBehaviour
 
     public bool stop;
     public float stopForce;
-
+    private Vector3 locVelocity;
 
     private void Awake()
     {
@@ -62,8 +62,8 @@ public class CarController : MonoBehaviour
     {
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
-        var locVel = transform.InverseTransformDirection(rigidbody.velocity);
-        stop = Input.GetAxis("Vertical") < 0 && (locVel.z > 0);
+        locVelocity = transform.InverseTransformDirection(rigidbody.velocity);
+        stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 0);
         if (!stop)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -71,6 +71,34 @@ public class CarController : MonoBehaviour
                 stop = true;
             }
         }
+        
+        blTrail.emitting = false;
+        brTrail.emitting = false;
+        flTrail.emitting = false;
+        frTrail.emitting = false;
+        
+        if (stop)
+        {
+            rearDriverW.brakeTorque = stopForce;
+            rearPassengerW.brakeTorque = stopForce;
+            //            rigidbody.AddForce(transform.forward * stopForce);
+            blTrail.emitting = true;
+            brTrail.emitting = true;
+        }
+        else
+        {
+            rearDriverW.brakeTorque = 0;
+            rearPassengerW.brakeTorque = 0;
+        }
+
+        if (rigidbody.velocity.magnitude > 1 && Vector3.Angle(transform.forward, rigidbody.velocity) > 20)
+        {
+            blTrail.emitting = true;
+            brTrail.emitting = true;
+            flTrail.emitting = true;
+            frTrail.emitting = true;
+        }
+
     }
 
     private void Steer()
@@ -79,25 +107,13 @@ public class CarController : MonoBehaviour
         frontDriverW.steerAngle = m_steeringAngle;
         frontPassengerW.steerAngle = m_steeringAngle;
 
-        if (stop)
-        {
-            rearDriverW.brakeTorque = stopForce;
-            rearPassengerW.brakeTorque = stopForce;
-            //            rigidbody.AddForce(transform.forward * stopForce);
-        }
-        else
-        {
-            rearDriverW.brakeTorque = 0;
-            rearPassengerW.brakeTorque = 0;
-            //
-        }
         
     }
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = m_verticalInput * motorForce;
-        frontPassengerW.motorTorque = m_verticalInput * motorForce;
+        frontDriverW.motorTorque = m_verticalInput * motorForce * (stop ? 2 : 1);
+        frontPassengerW.motorTorque = m_verticalInput * motorForce * (stop ? 2 : 1);
     }
 
     private void UpdateWheelPoses()
@@ -108,15 +124,17 @@ public class CarController : MonoBehaviour
         UpdateWheelPose(rearPassengerW, rearPassengerT);
     }
 
-    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    private void UpdateWheelPose(WheelCollider collider, Transform transform)
     {
-        Vector3 _pos = _transform.position;
-        Quaternion _quat = _transform.rotation;
+        Vector3 pos;
+        Quaternion quat;
 
-        _collider.GetWorldPose(out _pos, out _quat);
+        collider.GetWorldPose(out pos, out quat);
 
-        _transform.position = _pos;
-        _transform.rotation = _quat;
+        
+        transform.position = pos;
+        transform.rotation = quat;
+//        transform.localRotation.
     }
 
     private void FixedUpdate()
@@ -138,6 +156,11 @@ public class CarController : MonoBehaviour
     public float maxSteerAngle = 30;
     public float motorForce = 50;
 
+    [SerializeField] private TrailRenderer flTrail;
+    [SerializeField] private TrailRenderer frTrail;
+    [SerializeField] private TrailRenderer blTrail;
+    [SerializeField] private TrailRenderer brTrail;
+    
     private Rigidbody rigidbody;
 
 }
