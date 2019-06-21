@@ -41,13 +41,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 1.38
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
+    spring: 90000
+    damper: 9000
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 100
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -136,13 +136,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 1.38
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
+    spring: 90000
+    damper: 9000
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 100
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -197,13 +197,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 1.38
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
+    spring: 90000
+    damper: 9000
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 100
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -258,13 +258,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 1.38
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
+    spring: 90000
+    damper: 9000
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 100
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1361,7 +1361,7 @@ MeshCollider:
   m_GameObject: {fileID: 1266424174959578}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -1961,7 +1961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4384513394893912
 Transform:
   m_ObjectHideFlags: 0
@@ -2482,7 +2482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4414119286382868
 Transform:
   m_ObjectHideFlags: 0
@@ -2607,7 +2607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4871311451162388
 Transform:
   m_ObjectHideFlags: 0
@@ -2794,7 +2794,7 @@ MeshCollider:
   m_GameObject: {fileID: 1520866440981404}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -2811,6 +2811,7 @@ GameObject:
   - component: {fileID: 114944249367113288}
   - component: {fileID: 4183587961555964140}
   - component: {fileID: 7693153437884018855}
+  - component: {fileID: 104778985}
   m_Layer: 0
   m_Name: SportCar
   m_TagString: Untagged
@@ -2827,7 +2828,7 @@ Transform:
   m_GameObject: {fileID: 1536997390485366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4779180967543810}
   - {fileID: 4568934281116856}
@@ -2882,7 +2883,7 @@ Rigidbody:
   m_GameObject: {fileID: 1536997390485366}
   serializedVersion: 2
   m_Mass: 1000
-  m_Drag: 0.05
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -2901,12 +2902,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a350ae8d34b4763b4f4d080890c117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardLeft: {fileID: 1744945925}
-  forwardRight: {fileID: 2125749597}
-  backLeft: {fileID: 1344135856}
-  backRight: {fileID: 204886689}
-  strength: 500000
-  maxTurn: 200
+  frontDriverW: {fileID: 1744945925}
+  frontPassengerW: {fileID: 2125749597}
+  rearDriverW: {fileID: 1344135856}
+  rearPassengerW: {fileID: 204886689}
+  frontDriverT: {fileID: 4414119286382868}
+  frontPassengerT: {fileID: 4871311451162388}
+  rearDriverT: {fileID: 4771238695783980}
+  rearPassengerT: {fileID: 4384513394893912}
+  maxSteerAngle: 30
+  motorForce: 5000
+--- !u!65 &104778985
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536997390485366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.95, y: 3.6, z: 20.48}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1547043310347174
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,7 +3751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4771238695783980
 Transform:
   m_ObjectHideFlags: 0

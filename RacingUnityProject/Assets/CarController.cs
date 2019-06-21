@@ -48,10 +48,23 @@ public class CarController : MonoBehaviour
         }
     }
     */
+
+    private bool stop;
+    public float stopForce;
+
+
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
     public void GetInput()
     {
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
+        var locVel = transform.InverseTransformDirection(rigidbody.velocity);
+        Debug.Log(locVel);
+        stop = Input.GetAxis("Vertical") < 0 && (locVel.z > 0);
     }
 
     private void Steer()
@@ -59,6 +72,12 @@ public class CarController : MonoBehaviour
         m_steeringAngle = maxSteerAngle * m_horizontalInput;
         frontDriverW.steerAngle = m_steeringAngle;
         frontPassengerW.steerAngle = m_steeringAngle;
+
+        if (stop)
+        {
+            //            rigidbody.AddForce(transform.forward * stopForce);
+        }
+        
     }
 
     private void Accelerate()
@@ -104,5 +123,7 @@ public class CarController : MonoBehaviour
     public Transform rearDriverT, rearPassengerT;
     public float maxSteerAngle = 30;
     public float motorForce = 50;
+
+    private Rigidbody rigidbody;
 
 }
