@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using Zenject;
 
 public class CarController : MonoBehaviour
 {
@@ -53,8 +56,11 @@ public class CarController : MonoBehaviour
     public float stopForce;
     private Vector3 locVelocity;
 
+    [Inject] private DiContainer container;
+    
     private void Awake()
     {
+//        container.Bind<CarController>().FromInstance(this);
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -63,10 +69,10 @@ public class CarController : MonoBehaviour
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
         locVelocity = transform.InverseTransformDirection(rigidbody.velocity);
-        stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 0);
+        stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 1);
         if (!stop)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) && locVelocity.z > 1)
             {
                 stop = true;
             }
@@ -103,7 +109,7 @@ public class CarController : MonoBehaviour
 
     private void Steer()
     {
-        m_steeringAngle = maxSteerAngle * m_horizontalInput;
+        m_steeringAngle = maxSteerAngle * m_horizontalInput * (stop ? 2 : 1);
         frontDriverW.steerAngle = m_steeringAngle;
         frontPassengerW.steerAngle = m_steeringAngle;
 
@@ -112,8 +118,8 @@ public class CarController : MonoBehaviour
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = m_verticalInput * motorForce * (stop ? 2 : 1);
-        frontPassengerW.motorTorque = m_verticalInput * motorForce * (stop ? 2 : 1);
+        frontDriverW.motorTorque = m_verticalInput * motorForce;
+        frontPassengerW.motorTorque = m_verticalInput * motorForce;
     }
 
     private void UpdateWheelPoses()
@@ -163,4 +169,11 @@ public class CarController : MonoBehaviour
     
     private Rigidbody rigidbody;
 
+    public SpeedData GetSpeed()
+    {
+        SpeedData data = new SpeedData();
+        data.MaxSpeed = 30;
+        data.CurrentSpeed = Mathf.Clamp(rigidbody.velocity.magnitude, 0, 30);
+        return data;
+    }
 }
