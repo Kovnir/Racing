@@ -33,10 +33,17 @@ public class CarController : MonoBehaviour
     public float maxSteerAngle = 30;
     public float motorForce = 50;
 
+    [Header("Trails for Drift")]
     [SerializeField] private TrailRenderer flTrail;
     [SerializeField] private TrailRenderer frTrail;
     [SerializeField] private TrailRenderer blTrail;
     [SerializeField] private TrailRenderer brTrail;
+    
+    [Header("Trails for Grass")]
+    [SerializeField] private TrailRenderer flGrassTrail;
+    [SerializeField] private TrailRenderer frGrassTrail;
+    [SerializeField] private TrailRenderer blGrassTrail;
+    [SerializeField] private TrailRenderer brGrassTrail;
     
     private Rigidbody rigidbody;
     
@@ -162,11 +169,38 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canControl)
+        {
+            return;
+        }
         GetInput();
         UpdateFriction();
         Steer();
         Accelerate();
         UpdateWheelPoses();
+        EnableGrassTrails();
+    }
+
+    private void EnableGrassTrails()
+    {
+        EnableGrassTrail(frontLeftWheelCollider, flGrassTrail);
+        EnableGrassTrail(frontRightWheelCollider, frGrassTrail);
+        EnableGrassTrail(backLeftWheelCollider, blGrassTrail);
+        EnableGrassTrail(backRightWheelCollider, brGrassTrail);
+    }
+
+    private void EnableGrassTrail(WheelCollider wheel, TrailRenderer grassTrail)
+    {
+        WheelHit hit;
+        if (wheel.GetGroundHit(out hit))
+        {
+            if (hit.collider.name == "Grass")
+            {
+                grassTrail.emitting = true;
+                return;
+            }
+        }
+        grassTrail.emitting = false;
     }
 
     public SpeedData GetSpeed()
@@ -175,5 +209,16 @@ public class CarController : MonoBehaviour
         data.MaxSpeed = 30;
         data.CurrentSpeed = Mathf.Clamp(rigidbody.velocity.magnitude, 0, 30);
         return data;
+    }
+
+    private bool canControl = true;
+    public void TakeControl()
+    {
+        canControl = false;
+    }
+
+    public void ReturnControl()
+    {
+        canControl = true;
     }
 }
