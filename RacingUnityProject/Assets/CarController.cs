@@ -7,51 +7,39 @@ using Zenject;
 
 public class CarController : MonoBehaviour
 {
-    /*
-    [SerializeField] private WheelCollider forwardLeft;
-    [SerializeField] private WheelCollider forwardRight;
-    [SerializeField] private WheelCollider backLeft;
-    [SerializeField] private WheelCollider backRight;
-
-
-    [SerializeField] private float strength = 20000;
-    [SerializeField] private float maxTurn = 20;
     
-    
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            var torque = strength * Time.deltaTime;
-            forwardLeft.motorTorque = torque;
-            forwardRight.motorTorque = torque;
-            backLeft.motorTorque = torque;
-            backRight.motorTorque = torque;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            var torque = - strength * Time.deltaTime;
-            forwardLeft.motorTorque = torque;
-            forwardRight.motorTorque = torque;
-            backLeft.motorTorque = torque;
-            backRight.motorTorque = torque;
-        }
-        
-        if (Input.GetKey(KeyCode.A))
-        {
-            forwardLeft.steerAngle = maxTurn;
-            forwardRight.steerAngle = maxTurn;
-        }
-        
-        if (Input.GetKey(KeyCode.D))
-        {
-            forwardLeft.steerAngle = -maxTurn;
-            forwardRight.steerAngle = -maxTurn;
-        }
-    }
-    */
+    private float m_horizontalInput;
+    private float m_verticalInput;
+    private float m_steeringAngle;
 
+    [SerializeField]
+    private WheelCollider frontLeftWheelCollider;
+    [SerializeField]
+    private WheelCollider frontRightWheelCollider;
+    [SerializeField]
+    private WheelCollider backLeftWheelCollider;
+    [SerializeField]
+    private WheelCollider backRightWheelCollider;
+
+    [SerializeField]
+    private Transform frontLeftWheelTransform;
+    [SerializeField]
+    private Transform frontRightWheel;
+    [SerializeField]
+    private Transform backLeftWheelTransform;
+    [SerializeField]
+    private Transform backRightWheelTransform;
+    
+    public float maxSteerAngle = 30;
+    public float motorForce = 50;
+
+    [SerializeField] private TrailRenderer flTrail;
+    [SerializeField] private TrailRenderer frTrail;
+    [SerializeField] private TrailRenderer blTrail;
+    [SerializeField] private TrailRenderer brTrail;
+    
+    private Rigidbody rigidbody;
+    
     public bool stop;
     public float stopForce;
     private Vector3 locVelocity;
@@ -85,49 +73,78 @@ public class CarController : MonoBehaviour
         
         if (stop)
         {
-            rearDriverW.brakeTorque = stopForce;
-            rearPassengerW.brakeTorque = stopForce;
+            backLeftWheelCollider.brakeTorque = stopForce;
+            backRightWheelCollider.brakeTorque = stopForce;
             //            rigidbody.AddForce(transform.forward * stopForce);
             blTrail.emitting = true;
             brTrail.emitting = true;
         }
         else
         {
-            rearDriverW.brakeTorque = 0;
-            rearPassengerW.brakeTorque = 0;
+            backLeftWheelCollider.brakeTorque = 0;
+            backRightWheelCollider.brakeTorque = 0;
         }
 
         if (rigidbody.velocity.magnitude > 1 && Vector3.Angle(transform.forward, rigidbody.velocity) > 20)
         {
-            blTrail.emitting = true;
-            brTrail.emitting = true;
             flTrail.emitting = true;
             frTrail.emitting = true;
+            blTrail.emitting = true;
+            brTrail.emitting = true;
         }
+        
+        //don't draw trails in air
+        frTrail.emitting &= frontRightWheelCollider.isGrounded;
+        flTrail.emitting &= frontLeftWheelCollider.isGrounded;
 
+        blTrail.emitting &= backLeftWheelCollider.isGrounded;
+        brTrail.emitting &= backRightWheelCollider.isGrounded;
     }
 
     private void Steer()
     {
         m_steeringAngle = maxSteerAngle * m_horizontalInput * (stop ? 2 : 1);
-        frontDriverW.steerAngle = m_steeringAngle;
-        frontPassengerW.steerAngle = m_steeringAngle;
+        frontLeftWheelCollider.steerAngle = m_steeringAngle;
+        frontRightWheelCollider.steerAngle = m_steeringAngle;
 
         
     }
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = m_verticalInput * motorForce;
-        frontPassengerW.motorTorque = m_verticalInput * motorForce;
+        frontLeftWheelCollider.motorTorque = m_verticalInput * motorForce;
+        frontRightWheelCollider.motorTorque = m_verticalInput * motorForce;
     }
 
     private void UpdateWheelPoses()
     {
-        UpdateWheelPose(frontDriverW, frontDriverT);
-        UpdateWheelPose(frontPassengerW, frontPassengerT);
-        UpdateWheelPose(rearDriverW, rearDriverT);
-        UpdateWheelPose(rearPassengerW, rearPassengerT);
+        UpdateWheelPose(frontLeftWheelCollider, frontLeftWheelTransform);
+        UpdateWheelPose(frontRightWheelCollider, frontRightWheel);
+        UpdateWheelPose(backLeftWheelCollider, backLeftWheelTransform);
+        UpdateWheelPose(backRightWheelCollider, backRightWheelTransform);
+    }
+
+    private void UpdateFriction()
+    {
+        UpdateWheelFriction(frontLeftWheelCollider);
+        UpdateWheelFriction(frontRightWheelCollider);
+        UpdateWheelFriction(backLeftWheelCollider);
+        UpdateWheelFriction(backRightWheelCollider);
+    }
+
+    private void UpdateWheelFriction(WheelCollider wheel)
+    {
+        WheelHit hit;
+        if (wheel.GetGroundHit(out hit))
+        {
+            WheelFrictionCurve fFriction = wheel.forwardFriction;
+            fFriction.stiffness = hit.collider.material.staticFriction;
+            wheel.forwardFriction = fFriction;
+            WheelFrictionCurve sFriction = wheel.sidewaysFriction;
+            sFriction.stiffness = hit.collider.material.staticFriction;
+            wheel.sidewaysFriction = sFriction;
+        }
+
     }
 
     private void UpdateWheelPose(WheelCollider collider, Transform transform)
@@ -146,28 +163,11 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         GetInput();
+        UpdateFriction();
         Steer();
         Accelerate();
         UpdateWheelPoses();
     }
-
-    private float m_horizontalInput;
-    private float m_verticalInput;
-    private float m_steeringAngle;
-
-    public WheelCollider frontDriverW, frontPassengerW;
-    public WheelCollider rearDriverW, rearPassengerW;
-    public Transform frontDriverT, frontPassengerT;
-    public Transform rearDriverT, rearPassengerT;
-    public float maxSteerAngle = 30;
-    public float motorForce = 50;
-
-    [SerializeField] private TrailRenderer flTrail;
-    [SerializeField] private TrailRenderer frTrail;
-    [SerializeField] private TrailRenderer blTrail;
-    [SerializeField] private TrailRenderer brTrail;
-    
-    private Rigidbody rigidbody;
 
     public SpeedData GetSpeed()
     {
