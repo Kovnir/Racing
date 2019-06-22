@@ -9,8 +9,8 @@ public class SettingsInstaller : ScriptableObjectInstaller
     public override void InstallBindings()
     {
 //        Container.Bind<Settings>().FromResource("GameSettings");
-        Container.Bind<Settings>().FromInstance(Settings);
+        Container.Bind<GameSettings>().FromInstance(gameSettings);
     }
 
-    public Settings Settings;
+    public GameSettings gameSettings;
 }

@@ -3,17 +3,17 @@ using UnityEditor.SceneManagement;
 
 public static class ScenesOpener
 {
-    [MenuItem("Scene/Preloader")]
+    [MenuItem("Racing/Open Scene/Preloader")]
     public static void OpenPreloader()
     {
         Open("PreloaderScene");
     }
-    [MenuItem("Scene/MainMenu")]
+    [MenuItem("Racing/Open Scene/MainMenu")]
     public static void OpenMainMenu()
     {
         Open("MainMenuScene");        
     }
-    [MenuItem("Scene/Level")]
+    [MenuItem("Racing/Open Scene/Level")]
     public static void OpenLevel()
     {
         Open("LevelScene");

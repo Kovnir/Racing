@@ -5,7 +5,7 @@ using Zenject;
 
 public class LevelManager : MonoBehaviour
 {
-    [InjectOptional(Id = "bindedObject")] private GameObject gameObject;
+    [InjectOptional] private LevelSettings levelSettings;
     [Inject] private DiContainer container;
 
     [Inject] private CarController car;
@@ -31,14 +31,6 @@ public class LevelManager : MonoBehaviour
                 signalBus.Fire<OnLoseCheckpointSignal>();                
             }
         });
-        
-        if (gameObject == null)
-        {
-            Debug.LogError("Null");
-            return;
-        }
-
-        container.InstantiatePrefab(gameObject);
     }
 
     private void Start()
