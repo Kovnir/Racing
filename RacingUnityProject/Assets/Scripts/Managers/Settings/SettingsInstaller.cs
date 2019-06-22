@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 [CreateAssetMenu(fileName = "Resources/Settings", menuName = "Game Settings", order = 51)]
-public class MainScriptableObjectInstaller : ScriptableObjectInstaller
+public class SettingsInstaller : ScriptableObjectInstaller
 {
     public override void InstallBindings()
     {

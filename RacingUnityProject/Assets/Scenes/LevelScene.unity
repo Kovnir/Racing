@@ -182,9 +182,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5843971}
-  m_LocalRotation: {x: 0.116078995, y: 0.0000000046748556, z: -0.000000040000725,
-    w: 0.99324006}
-  m_LocalPosition: {x: 0, y: 2.3899999, z: -5.95}
+  m_LocalRotation: {x: 0.116079025, y: -0.00000002492553, z: -0.000000036545412, w: 0.99324006}
+  m_LocalPosition: {x: 0, y: 7.08, z: -5.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1154510666}
@@ -513,7 +512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735839243174642, guid: f8b49f9d229541d43b30476c740c2477, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.98
+      value: 5.67
       objectReference: {fileID: 0}
     - target: {fileID: 4735839243174642, guid: f8b49f9d229541d43b30476c740c2477, type: 3}
       propertyPath: m_LocalPosition.z
@@ -554,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 7693153437884018855, guid: f8b49f9d229541d43b30476c740c2477,
         type: 3}
       propertyPath: maxSteerAngle
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8b49f9d229541d43b30476c740c2477, type: 3}
@@ -2133,7 +2132,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &830350216 stripped
 Transform:
@@ -2592,9 +2591,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.116078995, y: 0.0000000046748556, z: -0.000000040000725,
-    w: 0.99324006}
-  m_LocalPosition: {x: 0, y: 2.3899999, z: -5.95}
+  m_LocalRotation: {x: 0.116079025, y: -0.00000002492553, z: -0.000000036545412, w: 0.99324006}
+  m_LocalPosition: {x: 0, y: 7.08, z: -5.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4207,7 +4205,7 @@ PrefabInstance:
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}
