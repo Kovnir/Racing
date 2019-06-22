@@ -168,7 +168,7 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -355,7 +355,7 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -896,7 +896,7 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -1022,7 +1022,7 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -6642,7 +6642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4278872798134794
 Transform:
   m_ObjectHideFlags: 0
@@ -6940,7 +6940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4336216640795774
 Transform:
   m_ObjectHideFlags: 0
@@ -8102,7 +8102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4499987231157296
 Transform:
   m_ObjectHideFlags: 0
@@ -8510,7 +8510,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4735839243174642}
-  - component: {fileID: 114944249367113288}
   - component: {fileID: 4183587961555964140}
   - component: {fileID: 7693153437884018855}
   - component: {fileID: 104778985}
@@ -8547,39 +8546,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114944249367113288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536997390485366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a2b3939a0e91f4fbe29ecd1c4af43d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  on: 1
-  on2: 1
-  on3: 1
-  BrakeL: 1
-  ReverseL: 1
-  FrontL: 1
-  TailL: 1
-  IndicatorL: 1
-  IndicatorR: 1
-  INDICATORS: 1
-  FL: {fileID: 0}
-  BL: {fileID: 0}
-  TL: {fileID: 0}
-  RL: {fileID: 0}
-  IL: {fileID: 0}
-  IR: {fileID: 0}
-  FLM: {fileID: 2100000, guid: e7c201546902c694084067c04832f71f, type: 2}
-  TLM: {fileID: 2100000, guid: 3ff81be07d516b84498d830e113ce20d, type: 2}
-  RLM: {fileID: 2100000, guid: 0a5d78c3e1415ac40a0e25976aaae858, type: 2}
-  ILM: {fileID: 2100000, guid: ca15278988a972e498139a4b1b6b8ce9, type: 2}
-  IRM: {fileID: 2100000, guid: c759fce7a5dd6dc4ea2792a428e94050, type: 2}
 --- !u!54 &4183587961555964140
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8628,6 +8594,7 @@ MonoBehaviour:
   maxSteerAngle: 30
   motorForce: 10000
   sound: {fileID: 4238641331474592957}
+  brakeLights: {fileID: 1705749675078614}
 --- !u!65 &104778985
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9093,8 +9060,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10
   m_Range: 11
-  m_SpotAngle: 103.6
-  m_InnerSpotAngle: 84.81518
+  m_SpotAngle: 171
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -9155,7 +9122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4995995805927494
 Transform:
   m_ObjectHideFlags: 0
@@ -9266,7 +9233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4008150060607664
 Transform:
   m_ObjectHideFlags: 0
@@ -9825,7 +9792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4747413783600266
 Transform:
   m_ObjectHideFlags: 0

@@ -40,24 +40,28 @@ public class CarController : MonoBehaviour
     [SerializeField] private TrailRenderer brGrassTrail;
     
 
-    [Header("Another")]
+    [Header("Other")]
     [SerializeField] private float stopForce;
     [SerializeField] private float maxSteerAngle = 30;
     [SerializeField] private float motorForce = 50;
 
     [SerializeField] private CarSound sound;
+    [SerializeField] private GameObject brakeLights;
     
     private bool canControl = true;
     private Rigidbody rigidbody;
     private Vector3 locVelocity;
     private bool stop;
-
+    private LightEffects lightEffects;
     [Inject] private DiContainer container;
+    
     
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         sound.PlayStart();
+        lightEffects = GetComponent<LightEffects>();
+        //lightEffects
     }
 
     public void GetInput()
@@ -65,10 +69,10 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         locVelocity = transform.InverseTransformDirection(rigidbody.velocity);
-        stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 1);
+        stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 0);
         if (!stop)
         {
-            if (Input.GetKey(KeyCode.Space) && locVelocity.z > 1)
+            if (Input.GetKey(KeyCode.Space))
             {
                 stop = true;
             }
@@ -188,12 +192,18 @@ public class CarController : MonoBehaviour
             return;
         }
         GetInput();
+        UpdateBrakeLights();
         UpdateTrails();
         UpdateFriction();
         Steer();
         Accelerate();
         UpdateWheelPoses();
         EnableGrassTrails();
+    }
+
+    private void UpdateBrakeLights()
+    {
+        brakeLights.SetActive(verticalInput < 0 || stop);
     }
 
     private void EnableGrassTrails()
