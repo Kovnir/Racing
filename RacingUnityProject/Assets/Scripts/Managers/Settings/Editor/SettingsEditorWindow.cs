@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
 using Zenject;
+using Random = System.Random;
 
 public class SettingsEditorWindow : EditorWindow
 {
@@ -68,6 +69,10 @@ public class SettingsEditorWindow : EditorWindow
                 throw new ArgumentOutOfRangeException();
         }
         EditorGUILayout.EndScrollView();
+
+        //do it without check here because have no enough time
+        //todo fix it
+        EditorUtility.SetDirty(gameSettings);
     }
 
     private void DrawGeneralMenu()
@@ -84,6 +89,8 @@ public class SettingsEditorWindow : EditorWindow
     
     private void DrawLevelsMenu()
     {
+        toRemove = null;
+        toUp = null;
         for (var index = 0; index < gameSettings.Levels.Count; index++)
         {
             var level = gameSettings.Levels[index];
@@ -100,9 +107,6 @@ public class SettingsEditorWindow : EditorWindow
             gameSettings.Levels.Remove(toUp);
             gameSettings.Levels.Insert(index-1, toUp);
         }
-
-        toRemove = null;
-        toUp = null;
         
         GUILayout.Space(PADDING);
         if (BigButton("Add New Level"))

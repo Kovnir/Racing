@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class OnCheckpointAchievedSignal
+﻿namespace Singals
 {
-    public readonly CheckPoint CheckPoint;
-    public OnCheckpointAchievedSignal(CheckPoint checkPoint)
+    public class OnCheckpointAchievedSignal
     {
-        CheckPoint = checkPoint;
+        public readonly CheckPoint CheckPoint;
+
+        public OnCheckpointAchievedSignal(CheckPoint checkPoint)
+        {
+            CheckPoint = checkPoint;
+        }
     }
 }

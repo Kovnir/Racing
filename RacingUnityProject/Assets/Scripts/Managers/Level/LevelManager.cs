@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Singals;
 using UnityEngine;
 using Zenject;
 
@@ -70,7 +71,7 @@ public class LevelManager : MonoBehaviour
 //        car.TakeControl();
         yield return startCountdown.Show();
 //        car.ReturnControl();
-
+        signalBus.Fire<OnRaceStartSignal>();
     }
 
     public void RegisterCheckPoint(CheckPoint checkPoint)

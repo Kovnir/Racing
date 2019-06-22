@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using Singals;
 using Zenject;
 
 public class ProjectInstaller : MonoInstaller
@@ -17,6 +18,7 @@ public class ProjectInstaller : MonoInstaller
     {
         Container.DeclareSignal<OnCheckpointAchievedSignal>();
         Container.DeclareSignal<OnLoseCheckpointSignal>();
+        Container.DeclareSignal<OnRaceStartSignal>();
         
         SignalBusInstaller.Install(Container);
     }

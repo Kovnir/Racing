@@ -1,3 +1,6 @@
-﻿public class OnLoseCheckpointSignal
+﻿namespace Singals
 {
+    public class OnLoseCheckpointSignal
+    {
+    }
 }
