@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class CarController : MonoBehaviour
 {
+    private float horizontalInput;
+    private float verticalInput;
+    private float steeringAngle;
     
-    private float m_horizontalInput;
-    private float m_verticalInput;
-    private float m_steeringAngle;
-
+    [Header("Wheel Colliders")]
     [SerializeField]
     private WheelCollider frontLeftWheelCollider;
     [SerializeField]
@@ -21,6 +17,7 @@ public class CarController : MonoBehaviour
     [SerializeField]
     private WheelCollider backRightWheelCollider;
 
+    [Header("Wheel Transforms")]
     [SerializeField]
     private Transform frontLeftWheelTransform;
     [SerializeField]
@@ -30,9 +27,6 @@ public class CarController : MonoBehaviour
     [SerializeField]
     private Transform backRightWheelTransform;
     
-    public float maxSteerAngle = 30;
-    public float motorForce = 50;
-
     [Header("Trails for Drift")]
     [SerializeField] private TrailRenderer flTrail;
     [SerializeField] private TrailRenderer frTrail;
@@ -45,24 +39,31 @@ public class CarController : MonoBehaviour
     [SerializeField] private TrailRenderer blGrassTrail;
     [SerializeField] private TrailRenderer brGrassTrail;
     
-    private Rigidbody rigidbody;
+
+    [Header("Another")]
+    [SerializeField] private float stopForce;
+    [SerializeField] private float maxSteerAngle = 30;
+    [SerializeField] private float motorForce = 50;
+
+    [SerializeField] private CarSound sound;
     
-    public bool stop;
-    public float stopForce;
+    private bool canControl = true;
+    private Rigidbody rigidbody;
     private Vector3 locVelocity;
+    private bool stop;
 
     [Inject] private DiContainer container;
     
     private void Awake()
     {
-//        container.Bind<CarController>().FromInstance(this);
         rigidbody = GetComponent<Rigidbody>();
+        sound.PlayStart();
     }
 
     public void GetInput()
     {
-        m_horizontalInput = Input.GetAxis("Horizontal");
-        m_verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
         locVelocity = transform.InverseTransformDirection(rigidbody.velocity);
         stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 1);
         if (!stop)
@@ -72,12 +73,15 @@ public class CarController : MonoBehaviour
                 stop = true;
             }
         }
-        
+    }
+
+    private void UpdateTrails()
+    {
         blTrail.emitting = false;
         brTrail.emitting = false;
         flTrail.emitting = false;
         frTrail.emitting = false;
-        
+
         if (stop)
         {
             backLeftWheelCollider.brakeTorque = stopForce;
@@ -98,8 +102,13 @@ public class CarController : MonoBehaviour
             frTrail.emitting = true;
             blTrail.emitting = true;
             brTrail.emitting = true;
+            sound.StartDrifting();
         }
-        
+        else
+        {
+            sound.EndDrifting();
+        }
+
         //don't draw trails in air
         frTrail.emitting &= frontRightWheelCollider.isGrounded;
         flTrail.emitting &= frontLeftWheelCollider.isGrounded;
@@ -110,17 +119,24 @@ public class CarController : MonoBehaviour
 
     private void Steer()
     {
-        m_steeringAngle = maxSteerAngle * m_horizontalInput * (stop ? 2 : 1);
-        frontLeftWheelCollider.steerAngle = m_steeringAngle;
-        frontRightWheelCollider.steerAngle = m_steeringAngle;
-
-        
+        steeringAngle = maxSteerAngle * horizontalInput * (stop ? 2 : 1);
+        frontLeftWheelCollider.steerAngle = steeringAngle;
+        frontRightWheelCollider.steerAngle = steeringAngle;
     }
 
     private void Accelerate()
     {
-        frontLeftWheelCollider.motorTorque = m_verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = m_verticalInput * motorForce;
+        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
+        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+        Debug.Log(verticalInput);
+        if (verticalInput > 0)
+        {
+            sound.StartBoost();
+        }
+        else
+        {
+            sound.EndBoost();            
+        }
     }
 
     private void UpdateWheelPoses()
@@ -174,6 +190,7 @@ public class CarController : MonoBehaviour
             return;
         }
         GetInput();
+        UpdateTrails();
         UpdateFriction();
         Steer();
         Accelerate();
@@ -211,7 +228,6 @@ public class CarController : MonoBehaviour
         return data;
     }
 
-    private bool canControl = true;
     public void TakeControl()
     {
         canControl = false;

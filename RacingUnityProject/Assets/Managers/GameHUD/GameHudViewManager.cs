@@ -29,10 +29,7 @@ public class GameHudViewManager : MonoBehaviour
     
     private void Awake()
     {
-//        car = GameObject.FindObjectOfType<CarController>();
-        signalBus.Subscribe<SomeSignal>(()=>{Debug.LogError("ONONON!!!");});
-//        container.BindSignal<SomeSignal>().ToMethod(() => { });
-//        container.BindSignal<SomeSignal>().ToMethod<GameHudViewManager>((manager, signal) => { });
+//        signalBus.Subscribe<SomeSignal>(()=>{Debug.LogError("ONONON!!!");});
     }
     
     [UsedImplicitly]
@@ -52,8 +49,11 @@ public class GameHudViewManager : MonoBehaviour
         speedText.text = speed.CurrentSpeed.ToString("0.00");//todo optimize
         maxSpeedText.text = speed.MaxSpeed.ToString("0"); //todo optimize
         float percent = speed.CurrentSpeed / speed.MaxSpeed;
-        arrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 180,
-            Mathf.Lerp(minArrowAngle, maxArrowAngle, percent)));
+        
+        
+        var realValue = Mathf.Lerp(minArrowAngle, maxArrowAngle, percent);
+        
+        arrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 180,realValue));
     }
 }
 
