@@ -110,8 +110,8 @@ public class CarController : MonoBehaviour
         }
 
         //don't draw trails in air
-        frTrail.emitting &= frontRightWheelCollider.isGrounded;
         flTrail.emitting &= frontLeftWheelCollider.isGrounded;
+        frTrail.emitting &= frontRightWheelCollider.isGrounded;
 
         blTrail.emitting &= backLeftWheelCollider.isGrounded;
         brTrail.emitting &= backRightWheelCollider.isGrounded;
