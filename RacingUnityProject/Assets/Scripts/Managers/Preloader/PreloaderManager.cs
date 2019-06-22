@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using Kovnir.FastTweener;
 using Zenject;
 
 public class PreloaderManager
@@ -8,9 +9,7 @@ public class PreloaderManager
 
     public void Preloading()
     {
-        playerProfileManager.Load(() =>
-        {
-            loaderViewManager.LoadMainMenu();
-        });
+        //wait 1 second to see preloader.
+        FastTweener.Schedule(1, () => { playerProfileManager.Load(() => { loaderViewManager.LoadMainMenu(); }); });
     }
 }
