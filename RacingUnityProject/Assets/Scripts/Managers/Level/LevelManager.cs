@@ -5,10 +5,12 @@ using Zenject;
 
 public class LevelManager : MonoBehaviour
 {
+    //optional for make possible to run scene without all another game
     [InjectOptional] private LevelSettings levelSettings;
     [Inject] private DiContainer container;
 
-    [Inject] private CarController car;
+    [SerializeField]
+    private CarController car;
     [SerializeField] private StartCountdown startCountdown;
 
     [Inject] private SignalBus signalBus;
@@ -19,6 +21,10 @@ public class LevelManager : MonoBehaviour
     
     private void Awake()
     {
+        var carPrefab = container.InstantiatePrefab(car);
+        var comp = carPrefab.GetComponent<CarController>();
+        container.Bind<CarController>().FromInstance(comp);
+        
         signalBus.Subscribe<OnCheckpointAchievedSignal>(x =>
         {
             if (x.CheckPoint.Index == nextCheckpoint)

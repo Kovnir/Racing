@@ -12,7 +12,7 @@ public class GameHudViewManager : MonoBehaviour
 
     [Inject] private DiContainer container;
 
-    [Inject] private CarController car;
+    private CarController car;
     [Inject] private SignalBus bus;
     
     [SerializeField]
@@ -45,6 +45,12 @@ public class GameHudViewManager : MonoBehaviour
                     () => { loseCheckpointText.gameObject.SetActive(false); });
             });
         });
+    }
+
+    private void Start()
+    {
+        car = container.Resolve<CarController>();
+        //do it here because GameHudViewManager can be created before LevelManager, which bind car;
     }
 
     [UsedImplicitly]

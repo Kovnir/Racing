@@ -7,7 +7,7 @@ public class LevelContextInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<CarController>().FromComponentInHierarchy().AsSingle();
+//        Container.Bind<CarController>().FromComponentInHierarchy().AsSingle();
         Container.Bind<LevelManager>().FromComponentInHierarchy().AsSingle();
     }
 }
