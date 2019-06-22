@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Kovnir.FastTweener;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Analytics;
-using Zenject;
-using Random = System.Random;
 
 public class SettingsEditorWindow : EditorWindow
 {
