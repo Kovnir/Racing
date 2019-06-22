@@ -294,11 +294,11 @@ WheelCollider:
   m_Radius: 1.38
   m_SuspensionSpring:
     spring: 1000
-    damper: 9000
+    damper: 5000
     targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 10
+  m_Mass: 0.5
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -471,7 +471,7 @@ Transform:
   - {fileID: 1558268610}
   - {fileID: 1732574111}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &756266822
 GameObject:
@@ -505,7 +505,7 @@ Transform:
   - {fileID: 2037805295}
   - {fileID: 1523063994}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &910352107
 GameObject:
@@ -667,36 +667,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 0
---- !u!1 &1250237043
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1250237044}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1250237044
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250237043}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1344135854
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,11 +709,11 @@ WheelCollider:
   m_Radius: 1.38
   m_SuspensionSpring:
     spring: 1000
-    damper: 9000
+    damper: 5000
     targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 10
+  m_Mass: 0.5
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -1178,11 +1148,11 @@ WheelCollider:
   m_Radius: 1.38
   m_SuspensionSpring:
     spring: 1000
-    damper: 9000
+    damper: 5000
     targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 10
+  m_Mass: 0.5
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -5905,7 +5875,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b09728b89e5254b99bc884aa83c3929a, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5991,11 +5961,11 @@ WheelCollider:
   m_Radius: 1.38
   m_SuspensionSpring:
     spring: 1000
-    damper: 9000
+    damper: 5000
     targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 10
+  m_Mass: 0.5
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -8566,7 +8536,6 @@ Transform:
   - {fileID: 4568934281116856}
   - {fileID: 4852481606295292}
   - {fileID: 910352108}
-  - {fileID: 1250237044}
   - {fileID: 4666978855845596451}
   - {fileID: 1277183164854994320}
   - {fileID: 5399949521173778736}
@@ -8619,7 +8588,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536997390485366}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 2000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -10710,7 +10679,7 @@ Transform:
   - {fileID: 208318811396969049}
   - {fileID: 2008042021642085491}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4114895157712488257
 GameObject:
@@ -11247,7 +11216,7 @@ Transform:
   m_Children:
   - {fileID: 4771238695783980}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7213383813899839269
 GameObject:
@@ -11278,7 +11247,7 @@ Transform:
   m_Children:
   - {fileID: 4414119286382868}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8672197478423516011
 GameObject:
@@ -11309,7 +11278,7 @@ Transform:
   m_Children:
   - {fileID: 4871311451162388}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8758414296375589116
 GameObject:
@@ -11345,7 +11314,7 @@ Transform:
   - {fileID: 5583086516920171099}
   - {fileID: 702225932149132770}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4238641331474592957
 MonoBehaviour:
@@ -11393,5 +11362,5 @@ Transform:
   m_Children:
   - {fileID: 4384513394893912}
   m_Father: {fileID: 4735839243174642}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
