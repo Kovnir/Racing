@@ -10,12 +10,14 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<string>().WithId("LevelSceneName").FromInstance("LevelScene").WhenInjectedInto<LoaderViewManager>();
         Container.Bind<string>().WithId("MainMenuSceneName").FromInstance("MainMenuScene").WhenInjectedInto<LoaderViewManager>();
         
-        Container.DeclareSignal<SomeSignal>();
+        InstallSignals();
+    }
 
+    private void InstallSignals()
+    {
+        Container.DeclareSignal<OnCheckpointAchievedSignal>();
+        Container.DeclareSignal<OnLoseCheckpointSignal>();
         
         SignalBusInstaller.Install(Container);
-        
-        //
-//        Container.Bind<>()
     }
 }

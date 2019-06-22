@@ -1,5 +1,6 @@
 ﻿using DefaultNamespace;
 using JetBrains.Annotations;
+using Kovnir.FastTweener;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -9,14 +10,16 @@ public class GameHudViewManager : MonoBehaviour
 {
     [InjectOptional] private LoaderViewManager loaderViewManager;
 
-    [Inject] private SignalBus signalBus;
-
     [Inject] private DiContainer container;
 
     [Inject] private CarController car;
+    [Inject] private SignalBus bus;
     
     [SerializeField]
     private TextMeshProUGUI speedText;
+
+    [SerializeField]
+    private TextMeshProUGUI loseCheckpointText;
     [SerializeField]
     private TextMeshProUGUI maxSpeedText;
     [SerializeField]
@@ -26,12 +29,24 @@ public class GameHudViewManager : MonoBehaviour
     [SerializeField]
     private GameObject arrow;
 
+
+    private FastTween loseCheckpointTween;
     
     private void Awake()
     {
-//        signalBus.Subscribe<SomeSignal>(()=>{Debug.LogError("ONONON!!!");});
+        bus.Subscribe<OnLoseCheckpointSignal>(() =>
+        {
+            loseCheckpointTween.Kill();
+            loseCheckpointText.gameObject.SetActive(true);
+            loseCheckpointText.alpha = 1;
+            loseCheckpointTween = FastTweener.Schedule(2, () =>
+            {
+                loseCheckpointTween = FastTweener.Float(1, 0, 2, f => { loseCheckpointText.alpha = f; },
+                    () => { loseCheckpointText.gameObject.SetActive(false); });
+            });
+        });
     }
-    
+
     [UsedImplicitly]
     public void OnBackButtonClick()
     {
@@ -39,8 +54,6 @@ public class GameHudViewManager : MonoBehaviour
         {
             loaderViewManager.LoadMainMenu();
         }
-        
-        signalBus.Fire<SomeSignal>();
     }
 
     private void Update()
@@ -55,9 +68,4 @@ public class GameHudViewManager : MonoBehaviour
         
         arrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 180,realValue));
     }
-}
-
-public class SomeSignal
-{
-    
 }

@@ -96,7 +96,7 @@ public class CarController : MonoBehaviour
             backRightWheelCollider.brakeTorque = 0;
         }
 
-        if (rigidbody.velocity.magnitude > 1 && Vector3.Angle(transform.forward, rigidbody.velocity) > 20)
+        if (rigidbody.velocity.magnitude > 10 && Vector3.Angle(transform.forward, rigidbody.velocity) > 20)
         {
             flTrail.emitting = true;
             frTrail.emitting = true;
@@ -128,7 +128,6 @@ public class CarController : MonoBehaviour
     {
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
-        Debug.Log(verticalInput);
         if (verticalInput > 0)
         {
             sound.StartBoost();
