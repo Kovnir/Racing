@@ -179,7 +179,6 @@ public class CarController : MonoBehaviour
         
         transform.position = pos;
         transform.rotation = quat;
-//        transform.localRotation.
     }
 
     private void FixedUpdate()
