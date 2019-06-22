@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Kovnir.FastTweener;
 using UnityEngine;
 
 public class StartCountdown : MonoBehaviour
@@ -19,6 +20,7 @@ public class StartCountdown : MonoBehaviour
         yield return new WaitForSeconds(1);
         steady.SetActive(false);
         go.SetActive(true);
-        
+        FastTweener.Schedule(1, () => { go.SetActive(false); });
+
     }
 }
