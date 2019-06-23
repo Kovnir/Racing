@@ -25,7 +25,9 @@ public class ProjectInstaller : MonoInstaller
         Container.DeclareSignal<OnRaceStartSignal>();
         Container.DeclareSignal<OnStarFailedSignal>();
         Container.DeclareSignal<OnLevelFailedSignal>();
-        
+        Container.DeclareSignal<OnFinishAchievedSignal>();
+        Container.DeclareSignal<OnLevelFinishedSignal>();
+
         SignalBusInstaller.Install(Container);
     }
 }

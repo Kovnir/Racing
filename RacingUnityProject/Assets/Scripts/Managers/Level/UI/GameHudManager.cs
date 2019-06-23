@@ -30,6 +30,8 @@ public class GameHudManager : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI failedText;
+    [SerializeField]
+    private TextMeshProUGUI winText;
 
     [SerializeField]
     private TextMeshProUGUI loseCheckpointText;
@@ -68,6 +70,13 @@ public class GameHudManager : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            failedText.text += "(PRESS ESC)";
+            failedText.gameObject.SetActive(true);
+        });
+        bus.Subscribe<OnLevelFinishedSignal>(() =>
+        {
+            calculateTime = false;
+            failedText.text = "LEVEL FINISHED!\n";
             failedText.text += "(PRESS ESC)";
             failedText.gameObject.SetActive(true);
         });

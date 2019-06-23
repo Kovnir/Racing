@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     private List<CheckPoint> checkPoints = new List<CheckPoint>();
 
     private int nextCheckpoint = 0;
+    private bool levelEnded;
     
     private void Awake()
     {
@@ -27,6 +28,11 @@ public class LevelManager : MonoBehaviour
         
         signalBus.Subscribe<OnCheckpointAchievedSignal>(x =>
         {
+            if (levelEnded)
+            {
+                return;
+            }
+
             if (x.CheckPoint.Index == nextCheckpoint)
             {
                 x.CheckPoint.Close();
@@ -37,8 +43,29 @@ public class LevelManager : MonoBehaviour
                 signalBus.Fire<OnLoseCheckpointSignal>();                
             }
         });
+        signalBus.Subscribe<OnFinishAchievedSignal>(() =>
+        {
+            if (levelEnded)
+            {
+                return;
+            }
+            if (nextCheckpoint == checkPoints.Count)
+            {
+                signalBus.Fire<OnLevelFinishedSignal>();
+            }
+            else
+            {
+                signalBus.Fire<OnLoseCheckpointSignal>();                
+            }
+        });
         signalBus.Subscribe<OnLevelFailedSignal>(() =>
         {
+            levelEnded = true;
+            car.TakeControl();
+        });
+        signalBus.Subscribe<OnLevelFailedSignal>(() =>
+        {
+            levelEnded = true;
             car.TakeControl();
         });
     }
