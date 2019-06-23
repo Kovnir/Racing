@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
             levelEnded = true;
             car.TakeControl();
         });
-        signalBus.Subscribe<OnLevelFailedSignal>(() =>
+        signalBus.Subscribe<OnLevelFinishedSignal>(() =>
         {
             levelEnded = true;
             car.TakeControl();
