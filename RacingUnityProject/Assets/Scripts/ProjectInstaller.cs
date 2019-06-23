@@ -17,7 +17,7 @@ public class ProjectInstaller : MonoInstaller
         
         //do it to make possible to run scene without all another game
         Container.Bind<LevelSettings>().FromInstance(new LevelSettings()
-            {OneStarTime = 10, TwoStarsTime = 20, ThreeStarsTime = 30});
+            {OneStarTime = 10, TwoStarsTime = 20, ThreeStarsTime = 300});
     }
 
     private void InstallSignals()

@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     [Inject] private LevelSettings levelSettings;
     [Inject] private DiContainer container;
-
+    [Inject] private CameraManager cameraManager;
     [SerializeField]
     private CarController carPrefab;
     private CarController car;
@@ -38,14 +38,26 @@ public class LevelManager : MonoBehaviour
                 x.CheckPoint.Close();
                 nextCheckpoint++;
                 signalBus.Fire<OnTakeCheckpointSignal>();
-                if (checkPoints.Count > nextCheckpoint + 1)
+                if (nextCheckpoint + 1 < checkPoints.Count)
                 {
                     checkPoints[nextCheckpoint].ShowStraight();
                     checkPoints[nextCheckpoint + 1].Show();
+                    cameraManager.RemoveTarget(checkPoints[nextCheckpoint-1].transform);
+                    cameraManager.AddTarget(checkPoints[nextCheckpoint+1].transform);
                 }
                 else
                 {
-                    finish.Show();
+                    if (nextCheckpoint + 1 == checkPoints.Count)
+                    {
+                        finish.Show();
+                        checkPoints[nextCheckpoint].ShowStraight();
+                        cameraManager.RemoveTarget(checkPoints[nextCheckpoint-1].transform);
+                        cameraManager.AddTarget(finish.transform);
+                    }
+                    else
+                    {
+                        cameraManager.RemoveTarget(checkPoints[nextCheckpoint-1].transform);
+                    }
                 }
             }
             else
@@ -105,6 +117,12 @@ public class LevelManager : MonoBehaviour
         }
         nextCheckpoint = 0;
 
+        if (checkPoints.Count < 2)
+        {
+            Debug.LogError(
+                "You have less then 2 checkpoints! Add more!");
+            return;
+        }
         if (finish == null)
         {
             Debug.LogError("Finish not registred!");
@@ -115,11 +133,9 @@ public class LevelManager : MonoBehaviour
             checkPoints[i].Hide();
         }
         checkPoints[0].ShowStraight();
-
-        if (checkPoints.Count > 1)
-        {
-            finish.Hide();
-        }
+        cameraManager.AddTarget(checkPoints[0].transform);
+        cameraManager.AddTarget(checkPoints[1].transform);
+        finish.Hide();
     }
 
 
