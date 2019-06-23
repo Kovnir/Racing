@@ -1,5 +1,6 @@
 ﻿using DefaultNamespace;
 using Signals;
+using UnityEngine;
 using Zenject;
 
 public class ProjectInstaller : MonoInstaller
@@ -10,6 +11,7 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<LoaderViewManager>().AsSingle();
         Container.Bind<string>().WithId("LevelSceneName").FromInstance("LevelScene").WhenInjectedInto<LoaderViewManager>();
         Container.Bind<string>().WithId("MainMenuSceneName").FromInstance("MainMenuScene").WhenInjectedInto<LoaderViewManager>();
+        Container.Bind<UISoundManager>().FromInstance(FindObjectOfType<UISoundManager>()).AsSingle();
         
         InstallSignals();
         
