@@ -46,24 +46,24 @@ Here are 3 types of camera you can choose in `Esc Menu`:
 The Game use signals to inform modules about some events without creating dependencies.
 
 All signals are self-described:
-* OnCameraModeChangedSignal.cs
-* OnCheckpointAchievedSignal.cs
-* OnFinishAchievedSignal.cs
-* OnLevelFailedSignal.cs
-* OnLevelFinishedSignal.cs
-* OnLoseCheckpointSignal.cs
-* OnPostProcessingSettingsChangedSignal.cs
-* OnRaceStartSignal.cs
-* OnStarFailedSignal.cs
-* OnTakeCheckpointSignal.cs
+* OnCameraModeChangedSignal
+* OnCheckpointAchievedSignal
+* OnFinishAchievedSignal
+* OnLevelFailedSignal
+* OnLevelFinishedSignal
+* OnLoseCheckpointSignal
+* OnPostProcessingSettingsChangedSignal
+* OnRaceStartSignal
+* OnStarFailedSignal
+* OnTakeCheckpointSignal
 
 
 ## How to make your level ##
 
 * Create a new scene;
 * Go to `Racing -> Settings`.
-**Coming soon**
-* You need to just create all environment with colliders. No addition knowledge needed!
+* Press `Add LevelContext Prefab to Current Scene` button;
+* Next, You need to just create all environment with colliders. No addition knowledge needed!
 * For ice and grass you can use prefabs `Ice` and `Grass` from `Prefabs` folder;
 * For road use items from `Prefabs/Road` folder;
 * You need to place start point and finish point. You can find it in `Prefabs` folder;
@@ -78,9 +78,11 @@ All signals are self-described:
 * Player Profile should be saved to Persistent Data instead of Player Prefs;
 * Player Profile should be encrypted;
 * Car physic can be better;
+* Hud manager should be devided to Hud manager and Timer/Start Manager. This class has do too lot of responsibilities;
 * Assets can be not optimal;
-* BUG: Tires trails can change color sometimes;
+* BUG: Tires trails has visual artifacts;
 * Almost all assets used Standart shader, it's very bad for performance;
 * Post processing can be not optimal;
 * Loader module should show loading screen and work asynchronously;
+* Hide mobile Input when it not needed;
 * It was tested only on MAC Pro 2017.
