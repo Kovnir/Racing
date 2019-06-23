@@ -33,28 +33,28 @@ public class StartsUI : MonoBehaviour
             stars1.text = settings.OneStarTime.ToString("0.00");
             stars2.text = settings.TwoStarsTime.ToString("0.00");
             stars3.text = settings.ThreeStarsTime.ToString("0.00");
-            stars1.color = nextColor;
-            stars1Title.color = nextColor;
+            stars3.color = nextColor;
+            stars3Title.color = nextColor;
         }
         bus.Subscribe<OnStarFailedSignal>(() =>
         {
             switch (failed)
             {
                 case 0:
-                    stars1.color = failedColor;
-                    stars1Title.color = failedColor;
+                    stars3.color = failedColor;
+                    stars3Title.color = failedColor;
                     stars2.color = nextColor;
                     stars2Title.color = nextColor;
                     break;
                 case 1:
                     stars2.color = failedColor;
                     stars2Title.color = failedColor;
-                    stars3.color = nextColor;
-                    stars3Title.color = nextColor;
+                    stars1.color = nextColor;
+                    stars1Title.color = nextColor;
                     break;
                 case 2:
-                    stars3.color = failedColor;
-                    stars3Title.color = failedColor;
+                    stars1.color = failedColor;
+                    stars1Title.color = failedColor;
                     break;
                 default:
                     throw new ArgumentException();

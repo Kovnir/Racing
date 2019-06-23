@@ -7,11 +7,13 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
+//todo move all timer logic from here!
 public class GameHudManager : MonoBehaviour
 {
     [Inject] private LevelManager levelManager;
-
+    [Inject(Id = "levelNum")] private int levelNum;
     [Inject] private DiContainer container;
+    [Inject] private PlayerProfileManager playerProfileManager;
 
     private CarController car;
     [Inject] private SignalBus bus;
@@ -53,7 +55,7 @@ public class GameHudManager : MonoBehaviour
         bus.Subscribe<OnLoseCheckpointSignal>(OnLoseCheckpoint);
         bus.Subscribe<OnRaceStartSignal>(() =>
         {
-            nextStarTime = levelSettings.OneStarTime;
+            nextStarTime = levelSettings.ThreeStarsTime;
             calculateTime = true;
             timeText.gameObject.SetActive(true);
         });
@@ -81,6 +83,7 @@ public class GameHudManager : MonoBehaviour
             failedText.text = "LEVEL FINISHED!\n";
             failedText.text += "(PRESS ESC)";
             failedText.gameObject.SetActive(true);
+            playerProfileManager.OnLevelComplete(levelNum, currentStar);
         });
         bus.Subscribe<OnTakeCheckpointSignal>(() =>
         {
@@ -121,7 +124,7 @@ public class GameHudManager : MonoBehaviour
 
     }
 
-    private int currentStar = 0;
+    private int currentStar = 3;
     private float nextStarTime = 0;
     
     private void Update()
@@ -134,17 +137,17 @@ public class GameHudManager : MonoBehaviour
             
             if (time > nextStarTime)
             {
+                currentStar--;
                 bus.Fire<OnStarFailedSignal>();
-                currentStar++;
                 switch (currentStar)
                 {
-                    case 1:
+                    case 2:
                         nextStarTime = levelSettings.TwoStarsTime;
                         break;
-                    case 2:
-                        nextStarTime = levelSettings.ThreeStarsTime;
+                    case 1:
+                        nextStarTime = levelSettings.OneStarTime;
                         break;
-                    case 3:
+                    case 0:
                         bus.Fire(new OnLevelFailedSignal(OnLevelFailedSignal.FailReason.TimeIsUp));
                         break;
                     default:

@@ -9,12 +9,14 @@ public class LevelManager : MonoBehaviour
     [Inject] private LevelSettings levelSettings;
     [Inject] private DiContainer container;
     [Inject] private CameraManager cameraManager;
+    [Inject] private SignalBus signalBus;
+    
     [SerializeField]
     private CarController carPrefab;
     private CarController car;
+    
     [SerializeField] private StartCountdown startCountdown;
 
-    [Inject] private SignalBus signalBus;
     
     private List<CheckPoint> checkPoints = new List<CheckPoint>();
     private Finish finish;

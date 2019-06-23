@@ -99,6 +99,26 @@ public class PlayerProfileManager
         }
         return profile.Settings.CameraMode;
     }
+    
+    public PlayerProfile.PlayerProgress GetProgress()
+    {
+        return profile.Progress;
+    }
+
+    public void OnLevelComplete(int levelNum, int startsCount)
+    {
+        Debug.Log("LevelCompleted! Num: " + levelNum + " starts: " + startsCount);
+        if (profile.Progress.levels.Count < levelNum + 1)
+        {
+            profile.Progress.levels.Add(new PlayerProfile.PlayerProgress.LevelProgress());
+        }
+
+        if (profile.Progress.levels[levelNum].StarsCount < startsCount)
+        {
+            profile.Progress.levels[levelNum].StarsCount = startsCount;
+        }
+        Save();
+    }
 }
 
 public class PlayerProfile
