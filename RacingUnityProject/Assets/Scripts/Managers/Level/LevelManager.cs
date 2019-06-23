@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     
     private List<CheckPoint> checkPoints = new List<CheckPoint>();
     private Finish finish;
+    private SpawnPoint spawnPoint;
     
     private int nextCheckpoint = 0;
     private bool levelEnded;
@@ -96,6 +97,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        car.transform.position = spawnPoint.transform.position;
+        car.transform.rotation = spawnPoint.transform.rotation;
         ProcessCheckpoints();
 //        signalBus.Fire(new UpdateCheckpointsHudSignal(0, checkPoints.Count));
         StartCoroutine(StartSequence());
@@ -157,7 +160,7 @@ public class LevelManager : MonoBehaviour
     {
         if (this.finish != null)
         {
-            Debug.LogError("There is more than 1 finish in the level");
+            Debug.LogError("There is more than 1 finish in the level!");
             return;
         }
         this.finish = finish;
@@ -166,5 +169,15 @@ public class LevelManager : MonoBehaviour
     public int GetCheckpointsCount()
     {
         return checkPoints.Count;
+    }
+
+    public void RegisterSpawnPoint(SpawnPoint spawnPoint)
+    {
+        if (this.spawnPoint != null)
+        {
+            Debug.LogError("There is more than 1 spawn points in the level!");
+            return;
+        }
+        this.spawnPoint = spawnPoint;
     }
 }
