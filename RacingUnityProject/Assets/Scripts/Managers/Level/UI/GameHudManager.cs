@@ -10,6 +10,7 @@ using Zenject;
 public class GameHudManager : MonoBehaviour
 {
     [InjectOptional] private LoaderViewManager loaderViewManager;
+    [Inject] private LevelManager levelManager;
 
     [Inject] private DiContainer container;
 
@@ -23,15 +24,14 @@ public class GameHudManager : MonoBehaviour
     private float time;
 
     private bool calculateTime = false;
-//    [SerializeField]
-//    private TextMeshProUGUI GoldTimeText;
+
     [SerializeField]
     private TextMeshProUGUI timeText;
     
     [SerializeField]
     private TextMeshProUGUI failedText;
     [SerializeField]
-    private TextMeshProUGUI winText;
+    private TextMeshProUGUI checkpointsText;
 
     [SerializeField]
     private TextMeshProUGUI loseCheckpointText;
@@ -45,6 +45,9 @@ public class GameHudManager : MonoBehaviour
     private GameObject arrow;
 
     private FastTween loseCheckpointTween;
+
+    private int checkpointsCount;
+    private int currentCheckpoint;
     
     private void Awake()
     {
@@ -80,6 +83,29 @@ public class GameHudManager : MonoBehaviour
             failedText.text += "(PRESS ESC)";
             failedText.gameObject.SetActive(true);
         });
+        bus.Subscribe<OnTakeCheckpointSignal>(() =>
+        {
+            currentCheckpoint++;
+            UpdateCheckpointText();
+        });
+    }
+
+    private void Start()
+    {
+        //do it here because GameHudViewManager can be created before LevelManager, which bind car;
+        car = container.Resolve<CarController>();
+        checkpointsCount = levelManager.GetCheckpointsCount();
+        currentCheckpoint = 0;
+        UpdateCheckpointText();
+    }
+
+    private void UpdateCheckpointText()
+    {
+        checkpointsText.text = currentCheckpoint + "/" + checkpointsCount;
+        if (currentCheckpoint == checkpointsCount)
+        {
+            checkpointsText.text += "\nGO TO THE FINISH!";
+        }
     }
 
 
@@ -94,12 +120,6 @@ public class GameHudManager : MonoBehaviour
                 () => { loseCheckpointText.gameObject.SetActive(false); });
         });
 
-    }
-
-    private void Start()
-    {
-        car = container.Resolve<CarController>();
-        //do it here because GameHudViewManager can be created before LevelManager, which bind car;
     }
 
     [UsedImplicitly]

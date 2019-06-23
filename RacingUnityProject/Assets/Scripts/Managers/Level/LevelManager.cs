@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private StartCountdown startCountdown;
 
     [Inject] private SignalBus signalBus;
-
+    
     private List<CheckPoint> checkPoints = new List<CheckPoint>();
 
     private int nextCheckpoint = 0;
@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
     {
         car = container.InstantiatePrefab(carPrefab).GetComponent<CarController>();
         container.Bind<CarController>().FromInstance(car).AsSingle();
-        
         signalBus.Subscribe<OnCheckpointAchievedSignal>(x =>
         {
             if (levelEnded)
@@ -37,6 +36,7 @@ public class LevelManager : MonoBehaviour
             {
                 x.CheckPoint.Close();
                 nextCheckpoint++;
+                signalBus.Fire<OnTakeCheckpointSignal>();                
             }
             else
             {
@@ -73,6 +73,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         ProcessCheckpoints();
+//        signalBus.Fire(new UpdateCheckpointsHudSignal(0, checkPoints.Count));
         StartCoroutine(StartSequence());
     }
 
@@ -107,5 +108,10 @@ public class LevelManager : MonoBehaviour
     public void RegisterCheckPoint(CheckPoint checkPoint)
     {
         checkPoints.Add(checkPoint);
+    }
+
+    public int GetCheckpointsCount()
+    {
+        return checkPoints.Count;
     }
 }
