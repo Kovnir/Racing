@@ -68,3 +68,4 @@ All signals are self-described:
 * BUG: Tires trails can change color sometimes;
 * Almost all assets used Standart shader, it's very bad for performance;
 * Post processing can be not optimal;
+* Loader module should show loading screen and work asynchronously;
