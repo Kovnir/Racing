@@ -14,7 +14,7 @@ Tweener - [FastTweener](https://assetstore.unity.com/packages/tools/animation/fa
 
 JSON - [Json .NET fro Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347).
 
-Also was used a lot of free models assets and sounds.
+Also was used a lot of free models assets and sounds. Two shaders was taken from my another project and updated.
 
 The game consists of modules (player profile, preloader, main menu, etc). You can find each module in `Scripts/Modules` folder.
 
@@ -32,15 +32,6 @@ Here are 3 types of camera you can choose in `Esc Menu`:
 * Cinemachine Camera - camera made with cinemachine almost without code.
 * Following Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
 
-### Winning And Losing ###
-
-* When you turn the car upside down - you lose.
-* When your time is up - you lose.
-* When you take all checkpoint and cross finish line - you ween.
-* If you do it fast you will take more start.
-* When your path the level, you can play the next one.
-
-
 ### Signals ###
 
 The Game use signals to inform modules about some events without creating dependencies.
@@ -56,6 +47,24 @@ All signals are self-described:
 * OnRaceStartSignal
 * OnStarFailedSignal
 * OnTakeCheckpointSignal
+
+### Mobile Input ###
+
+Mobile input was made with Unity's standard `Cross Platform Input`.
+
+## Game Mechanics ##
+
+* When you turn the car upside down - you `lose`.
+* When your time is up - you `lose`.
+* When you take all checkpoint and cross finish line - you `win`.
+* If you do it fast you will take `more stars`.
+* When your path the level, you can play the next one.
+
+### Ghost-Rider ###
+
+When you pass the level with more start than early, your gost will be recorded. Than, when you open the level, ghost will rides with you!
+
+Game take position and rotatoon value every 0.5 seconds. It's enought and look great even visout interpolation!
 
 
 ## How to make your level ##
