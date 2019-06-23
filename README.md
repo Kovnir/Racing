@@ -46,10 +46,17 @@ Here are 3 types of camera you can choose in `Esc Menu`:
 The Game use signals to inform modules about some events without creating dependencies.
 
 All signals are self-described:
-* OnCheckpointAchievedSignal
-* OnLoseCheckpointSignal
-* OnRaceStartSignal
-* OnStarFailedSignal
+* OnCameraModeChangedSignal.cs
+* OnCheckpointAchievedSignal.cs
+* OnFinishAchievedSignal.cs
+* OnLevelFailedSignal.cs
+* OnLevelFinishedSignal.cs
+* OnLoseCheckpointSignal.cs
+* OnPostProcessingSettingsChangedSignal.cs
+* OnRaceStartSignal.cs
+* OnStarFailedSignal.cs
+* OnTakeCheckpointSignal.cs
+
 
 ## How to make your level ##
 
