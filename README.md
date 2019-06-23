@@ -76,6 +76,20 @@ There is a 3 types of surfaces:
 | `Grass`  | medium  | low | medium | low |
 | `Ice` | low  | low | low | hight |
 
+### Levels ###
+
+#### Level 1 ####
+
+You should collect 6 checkpoint and rich the finish. Ease!
+
+#### Level 2 ####
+
+You should collect 6 checkpoint and rich the finish, but there is a lot of garbage on the road!
+
+#### Level 3 ####
+
+You should collect 6 checkpoint and rich the finish, but a big part of the road contains from ice!
+
 
 
 ## How to make your level ##
