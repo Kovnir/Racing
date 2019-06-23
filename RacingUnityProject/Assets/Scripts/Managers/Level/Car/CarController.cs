@@ -1,6 +1,7 @@
 ﻿using System;
 using Signals;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 using Zenject;
 
 public class CarController : MonoBehaviour
@@ -72,8 +73,29 @@ public class CarController : MonoBehaviour
 
     public void GetInput()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        float horizontalInputPC = Input.GetAxis("Horizontal");
+        float verticalInputPC = Input.GetAxis("Vertical");
+        float horizontalInputMobile = CrossPlatformInputManager.GetAxis("Horizontal");
+        float verticalInputMobile = CrossPlatformInputManager.GetAxis("Vertical");
+
+        if (Mathf.Abs(verticalInputPC) > Mathf.Abs(verticalInputMobile))
+        {
+            verticalInput = verticalInputPC;
+        }
+        else
+        {
+            verticalInput = verticalInputMobile;
+        }
+        if (Mathf.Abs(horizontalInputPC) > Mathf.Abs(horizontalInputMobile))
+        {
+            horizontalInput = horizontalInputPC;
+        }
+        else
+        {
+            horizontalInput = horizontalInputMobile;
+        }
+
+        
         locVelocity = transform.InverseTransformDirection(rigidbody.velocity);
         stop = Input.GetAxis("Vertical") < 0 && (locVelocity.z > 0);
         if (!stop)
