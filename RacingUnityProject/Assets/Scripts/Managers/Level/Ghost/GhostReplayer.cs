@@ -17,6 +17,11 @@ public class GhostReplayer : MonoBehaviour
     
     void Start()
     {
+        var progress = playrPlayerProfileManager.GetProgress();
+        if (progress.levels.Count <= levelNum)
+        {
+            return;
+        }
         records = playrPlayerProfileManager.GetProgress().levels[levelNum].Ghost;
         if (records != null && records.Count > 0)
         {
