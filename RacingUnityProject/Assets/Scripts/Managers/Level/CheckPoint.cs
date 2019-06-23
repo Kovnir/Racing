@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Singals;
+﻿using Signals;
 using UnityEngine;
 using Zenject;
 

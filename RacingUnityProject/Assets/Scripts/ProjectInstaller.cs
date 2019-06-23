@@ -1,5 +1,5 @@
 ﻿using DefaultNamespace;
-using Singals;
+using Signals;
 using Zenject;
 
 public class ProjectInstaller : MonoInstaller
@@ -12,6 +12,10 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<string>().WithId("MainMenuSceneName").FromInstance("MainMenuScene").WhenInjectedInto<LoaderViewManager>();
         
         InstallSignals();
+        
+        //do it to make possible to run scene without all another game
+        Container.Bind<LevelSettings>().FromInstance(new LevelSettings()
+            {OneStarTime = 10, TwoStarsTime = 20, ThreeStarsTime = 30});
     }
 
     private void InstallSignals()
@@ -19,6 +23,8 @@ public class ProjectInstaller : MonoInstaller
         Container.DeclareSignal<OnCheckpointAchievedSignal>();
         Container.DeclareSignal<OnLoseCheckpointSignal>();
         Container.DeclareSignal<OnRaceStartSignal>();
+        Container.DeclareSignal<OnStarFailedSignal>();
+        Container.DeclareSignal<OnLevelFailedSignal>();
         
         SignalBusInstaller.Install(Container);
     }

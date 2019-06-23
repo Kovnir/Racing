@@ -20,7 +20,7 @@ namespace DefaultNamespace
             zenjectSceneLoader.LoadScene(levelSceneName, LoadSceneMode.Single, container =>
             {
                 container.Bind<int>().WithId("levelNum").FromInstance(levelNum);
-                container.Bind<LevelSettings>().FromInstance(gameSettings.Levels[levelNum]);
+                container.Rebind<LevelSettings>().FromInstance(gameSettings.Levels[levelNum]);
             });
             //wait sec
             //Hide loading screen

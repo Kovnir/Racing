@@ -1,14 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Kovnir.FastTweener;
-using Singals;
+using Signals;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Playables;
 using Zenject;
 
-public class GameHudViewManager : MonoBehaviour
+public class GameHudManager : MonoBehaviour
 {
     [InjectOptional] private LoaderViewManager loaderViewManager;
 
@@ -16,6 +15,7 @@ public class GameHudViewManager : MonoBehaviour
 
     private CarController car;
     [Inject] private SignalBus bus;
+    [Inject] private LevelSettings levelSettings;
     
     [SerializeField]
     private TextMeshProUGUI speedText;
@@ -27,6 +27,9 @@ public class GameHudViewManager : MonoBehaviour
 //    private TextMeshProUGUI GoldTimeText;
     [SerializeField]
     private TextMeshProUGUI timeText;
+    
+    [SerializeField]
+    private TextMeshProUGUI failedText;
 
     [SerializeField]
     private TextMeshProUGUI loseCheckpointText;
@@ -39,7 +42,6 @@ public class GameHudViewManager : MonoBehaviour
     [SerializeField]
     private GameObject arrow;
 
-
     private FastTween loseCheckpointTween;
     
     private void Awake()
@@ -47,8 +49,27 @@ public class GameHudViewManager : MonoBehaviour
         bus.Subscribe<OnLoseCheckpointSignal>(OnLoseCheckpoint);
         bus.Subscribe<OnRaceStartSignal>(() =>
         {
+            nextStarTime = levelSettings.OneStarTime;
             calculateTime = true;
             timeText.gameObject.SetActive(true);
+        });
+        bus.Subscribe<OnLevelFailedSignal>(signal =>
+        {
+            calculateTime = false;
+            failedText.text = "LEVEL FAILED!\n";
+            switch (signal.Reason)
+            {
+                case OnLevelFailedSignal.FailReason.TimeIsUp:
+                    failedText.text += "TIME IS UP\n";
+                    break;
+                case OnLevelFailedSignal.FailReason.CarCrushed:
+                    failedText.text += "CAR WAS CRUSHED\n";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            failedText.text += "(PRESS ESC)";
+            failedText.gameObject.SetActive(true);
         });
     }
 
@@ -81,6 +102,9 @@ public class GameHudViewManager : MonoBehaviour
         }
     }
 
+    private int currentStar = 0;
+    private float nextStarTime = 0;
+    
     private void Update()
     {
         UpdateSpeed();
@@ -88,6 +112,26 @@ public class GameHudViewManager : MonoBehaviour
         {
             time += Time.deltaTime;
             timeText.text = time.ToString("0.00");
+            
+            if (time > nextStarTime)
+            {
+                bus.Fire<OnStarFailedSignal>();
+                currentStar++;
+                switch (currentStar)
+                {
+                    case 1:
+                        nextStarTime = levelSettings.TwoStarsTime;
+                        break;
+                    case 2:
+                        nextStarTime = levelSettings.ThreeStarsTime;
+                        break;
+                    case 3:
+                        bus.Fire(new OnLevelFailedSignal(OnLevelFailedSignal.FailReason.TimeIsUp));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
     }
 

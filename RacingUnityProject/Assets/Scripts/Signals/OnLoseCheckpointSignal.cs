@@ -1,4 +1,4 @@
-﻿namespace Singals
+﻿namespace Signals
 {
     public class OnLoseCheckpointSignal
     {

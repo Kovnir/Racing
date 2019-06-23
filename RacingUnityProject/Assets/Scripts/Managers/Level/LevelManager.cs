@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Singals;
+using Signals;
 using UnityEngine;
 using Zenject;
 
 public class LevelManager : MonoBehaviour
 {
-    //optional for make possible to run scene without all another game
-    [InjectOptional] private LevelSettings levelSettings;
+    [Inject] private LevelSettings levelSettings;
     [Inject] private DiContainer container;
 
     [SerializeField]
+    private CarController carPrefab;
     private CarController car;
     [SerializeField] private StartCountdown startCountdown;
 
@@ -22,9 +22,8 @@ public class LevelManager : MonoBehaviour
     
     private void Awake()
     {
-        var carPrefab = container.InstantiatePrefab(car);
-        var comp = carPrefab.GetComponent<CarController>();
-        container.Bind<CarController>().FromInstance(comp);
+        car = container.InstantiatePrefab(carPrefab).GetComponent<CarController>();
+        container.Bind<CarController>().FromInstance(car).AsSingle();
         
         signalBus.Subscribe<OnCheckpointAchievedSignal>(x =>
         {
@@ -37,6 +36,10 @@ public class LevelManager : MonoBehaviour
             {
                 signalBus.Fire<OnLoseCheckpointSignal>();                
             }
+        });
+        signalBus.Subscribe<OnLevelFailedSignal>(() =>
+        {
+            car.TakeControl();
         });
     }
 
@@ -68,9 +71,9 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator StartSequence()
     {
-//        car.TakeControl();
+        car.TakeControl();
         yield return startCountdown.Show();
-//        car.ReturnControl();
+        car.ReturnControl();
         signalBus.Fire<OnRaceStartSignal>();
     }
 

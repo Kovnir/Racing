@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Signals;
+using UnityEngine;
 using Zenject;
 
 public class CarController : MonoBehaviour
@@ -54,6 +56,7 @@ public class CarController : MonoBehaviour
     private bool stop;
     private LightEffects lightEffects;
     [Inject] private DiContainer container;
+    [Inject] private SignalBus bus;
     
     
     private void Awake()
@@ -187,11 +190,17 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!canControl)
+        if (canControl)
         {
-            return;
+            GetInput();
+            CheckTurningOver();
         }
-        GetInput();
+        else
+        {
+            verticalInput = 0;
+            horizontalInput = 0;
+            stop = true;
+        }
         UpdateBrakeLights();
         UpdateTrails();
         UpdateFriction();
@@ -199,6 +208,28 @@ public class CarController : MonoBehaviour
         Accelerate();
         UpdateWheelPoses();
         EnableGrassTrails();
+    }
+
+    private float timeAfterTurningOver;
+    private void CheckTurningOver()
+    {
+        if (timeAfterTurningOver >= 3)
+        {
+            bus.Fire(new OnLevelFailedSignal(OnLevelFailedSignal.FailReason.CarCrushed));
+        }
+        else
+        {
+            if (rigidbody.velocity.magnitude < 1)
+            {
+                //if upside down
+                if (Math.Abs(transform.up.y - -1) < 0.1f)
+                {
+                    timeAfterTurningOver += Time.deltaTime;
+                    return;
+                }
+            }
+            timeAfterTurningOver = 0;
+        }
     }
 
     private void UpdateBrakeLights()
