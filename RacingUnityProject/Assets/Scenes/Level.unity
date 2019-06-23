@@ -3489,6 +3489,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckPoint (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3045448734402321041, guid: 1b612f1b100b64a458bc198fe7c72d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5447,6 +5452,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckPoint (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3045448734402321041, guid: 1b612f1b100b64a458bc198fe7c72d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5538,6 +5548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045448734402321041, guid: 1b612f1b100b64a458bc198fe7c72d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}
@@ -8196,6 +8211,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1039443858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3066783221767436021, guid: 8bfe9c2023ae64bc29807f8444d9c036,
+    type: 3}
+  m_PrefabInstance: {fileID: 3984850094285963668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1039443859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039443858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f758086d8da9c4d1393139bd6fd9b264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1045469374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17800,6 +17833,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045448734402321041, guid: 1b612f1b100b64a458bc198fe7c72d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3045448734402321069, guid: 1b612f1b100b64a458bc198fe7c72d96,
         type: 3}

@@ -83,7 +83,8 @@ public class GameHudManager : MonoBehaviour
             failedText.text = "LEVEL FINISHED!\n";
             failedText.text += "(PRESS ESC)";
             failedText.gameObject.SetActive(true);
-            playerProfileManager.OnLevelComplete(levelNum, currentStar);
+            var ghostData = container.Resolve<GhostRecorder>().ShotRecording();
+            playerProfileManager.OnLevelComplete(levelNum, currentStar, ghostData);
         });
         bus.Subscribe<OnTakeCheckpointSignal>(() =>
         {

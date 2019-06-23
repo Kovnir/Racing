@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Managers.Camera;
+using Managers.Level.Ghost;
 using Newtonsoft.Json.Linq;
 using Signals;
 using UnityEngine;
@@ -105,7 +106,7 @@ public class PlayerProfileManager
         return profile.Progress;
     }
 
-    public void OnLevelComplete(int levelNum, int startsCount)
+    public void OnLevelComplete(int levelNum, int startsCount, List<GhostData> ghostData)
     {
         Debug.Log("LevelCompleted! Num: " + levelNum + " starts: " + startsCount);
         if (profile.Progress.levels.Count < levelNum + 1)
@@ -116,6 +117,8 @@ public class PlayerProfileManager
         if (profile.Progress.levels[levelNum].StarsCount < startsCount)
         {
             profile.Progress.levels[levelNum].StarsCount = startsCount;
+            profile.Progress.levels[levelNum].Ghost = ghostData;
+            
         }
         Save();
     }
@@ -139,12 +142,7 @@ public class PlayerProfile
         public class LevelProgress
         {
             public int StarsCount;
-            public GhostData Ghost = new GhostData();
-            
-            public class GhostData
-            {
-                
-            }
+            public List<GhostData> Ghost = new List<GhostData>();
         }
     }
 }
