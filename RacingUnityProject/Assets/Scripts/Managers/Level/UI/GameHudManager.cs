@@ -9,7 +9,6 @@ using Zenject;
 
 public class GameHudManager : MonoBehaviour
 {
-    [InjectOptional] private LoaderViewManager loaderViewManager;
     [Inject] private LevelManager levelManager;
 
     [Inject] private DiContainer container;
@@ -120,15 +119,6 @@ public class GameHudManager : MonoBehaviour
                 () => { loseCheckpointText.gameObject.SetActive(false); });
         });
 
-    }
-
-    [UsedImplicitly]
-    public void OnBackButtonClick()
-    {
-        if (loaderViewManager != null)
-        {
-            loaderViewManager.LoadMainMenu();
-        }
     }
 
     private int currentStar = 0;

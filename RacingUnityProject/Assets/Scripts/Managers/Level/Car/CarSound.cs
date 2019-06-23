@@ -68,4 +68,10 @@ public class CarSound : MonoBehaviour
             boost.Stop();            
         });
     }
+
+
+    private void OnDestroy()
+    {
+        boostTween.Kill();
+    }
 }

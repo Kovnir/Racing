@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   Levels:
-  - OneStarTime: 2123
-    TwoStarsTime: 32132
-    ThreeStarsTime: 321
+  - OneStarTime: 30
+    TwoStarsTime: 20
+    ThreeStarsTime: 10
+    SceneName: 
+  - OneStarTime: 50
+    TwoStarsTime: 40
+    ThreeStarsTime: 30
     SceneName: 

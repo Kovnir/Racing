@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
+using Zenject;
 
 public class EscMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    
+    [InjectOptional] private LoaderViewManager loaderViewManager;
     public void OnResumeClick()
     {
         SetPause(false);
@@ -18,7 +20,8 @@ public class EscMenu : MonoBehaviour
     
     public void OnMainMenuClick()
     {
-        
+        Time.timeScale = 1;
+        loaderViewManager.LoadMainMenu();
     }
     
     public void OnPostProcessingClick()
