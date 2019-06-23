@@ -11,7 +11,7 @@ using Zenject;
 public class GameHudManager : MonoBehaviour
 {
     [Inject] private LevelManager levelManager;
-    [Inject(Id = "levelNum")] private int levelNum;
+    [InjectOptional(Id = "levelNum")] private int levelNum;
     [Inject] private DiContainer container;
     [Inject] private PlayerProfileManager playerProfileManager;
 

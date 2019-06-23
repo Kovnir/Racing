@@ -41,6 +41,9 @@ public class CarController : MonoBehaviour
     [SerializeField] private TrailRenderer blGrassTrail;
     [SerializeField] private TrailRenderer brGrassTrail;
     
+    [Header("Particles for Grass")]
+    [SerializeField] private ParticleSystem blGrassParticles;
+    [SerializeField] private ParticleSystem brGrassParticles;
 
     [Header("Other")]
     [SerializeField] private float stopForce;
@@ -208,6 +211,13 @@ public class CarController : MonoBehaviour
         Accelerate();
         UpdateWheelPoses();
         EnableGrassTrails();
+        EnableGrassParticles();
+    }
+
+    private void EnableGrassParticles()
+    {     
+        EnableGrassParticles(backLeftWheelCollider, blGrassParticles);
+        EnableGrassParticles(backRightWheelCollider, brGrassParticles);
     }
 
     private float timeAfterTurningOver;
@@ -257,6 +267,24 @@ public class CarController : MonoBehaviour
             }
         }
         grassTrail.emitting = false;
+    }
+    
+    private void EnableGrassParticles(WheelCollider wheel, ParticleSystem grassParticles)
+    {
+        WheelHit hit;
+        if (wheel.GetGroundHit(out hit))
+        {
+            if (hit.collider.name == "Grass" && verticalInput > 0)
+            {
+                if (!grassParticles.isPlaying)
+                {
+                    grassParticles.Play();
+                }
+                return;
+            }
+        }
+
+        grassParticles.Stop();
     }
 
     public SpeedData GetSpeed()
