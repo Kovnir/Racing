@@ -23,27 +23,27 @@ The game consists of modules (player profile, preloader, main menu, etc). You ca
 
 ### Car ###
 
-Car phisic made with `Wheel Colliders`. Standard Unit physics made 50% of work. Car controller code you can find in `CarController.cs` class.
+Car physics made with `Wheel Colliders`. Standard Unit physics made 50% of work. Car controller code you can find in `CarController.cs` class.
 
 ### Camera ###
 
-Here is a 3 types of camera you can choose in `Esc Menu`:
+Here are 3 types of camera you can choose in `Esc Menu`:
 * Simple Camera - simple smooth fallowing camera made with code. 
 * Cinemachine Camera - camera made with cinemachine almost without code.
-* Fallowing Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
+* Following Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
 
-### Wining And Loosing ###
+### Winning And Losing ###
 
-* When you turn car upside down - you loose.
-* When your time is up - you loose.
+* When you turn the car upside down - you lose.
+* When your time is up - you lose.
 * When you take all checkpoint and cross finish line - you ween.
-* If you do it fast you will taka more start.
-* When you path the level, you can play next one.
+* If you do it fast you will take more start.
+* When your path the level, you can play the next one.
 
 
-### Singals ###
+### Signals ###
 
-The Game use singals to inform modules about some events without creating dependencyes.
+The Game use signals to inform modules about some events without creating dependencies.
 
 All signals are self-described:
 * OnCheckpointAchievedSignal
@@ -53,10 +53,10 @@ All signals are self-described:
 
 ## How to make your level ##
 
-* Create new scene;
+* Create a new scene;
 * Go to `Racing -> Settings`.
-**Comming soon**
-* Next, you need to create button in the main menu and setup level num.
+**Coming soon**
+* Next, you need to create a button in the main menu and setup level num.
 * Done!
 
 ## What should be redo ##
@@ -66,5 +66,5 @@ All signals are self-described:
 * Car physic can be better;
 * Assets can be not optimal;
 * BUG: Tires trails can change color sometimes;
-* Almost all assets used Standart shader, it's very bed for performance;
+* Almost all assets used Standart shader, it's very bad for performance;
 * Post processing can be not optimal;
