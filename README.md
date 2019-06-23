@@ -23,13 +23,41 @@ The game consists of modules (player profile, preloader, main menu, etc). You ca
 
 ### Car ###
 
+Car phisic made with `Wheel Colliders`. Standard Unit physics made 50% of work. Car controller code you can find in `CarController.cs` class.
+
 ### Camera ###
 
-## Settings Window ##
+Here is a 3 types of camera you can choose in `Esc Menu`:
+* Simple Camera - simple smooth fallowing camera made with code. 
+* Cinemachine Camera - camera made with cinemachine almost without code.
+* Fallowing Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
 
+### Wining And Loosing ###
+
+* When you turn car upside down - you loose.
+* When your time is up - you loose.
+* When you take all checkpoint and cross finish line - you ween.
+* If you do it fast you will taka more start.
+* When you path the level, you can play next one.
+
+
+### Singals ###
+
+The Game use singals to inform modules about some events without creating dependencyes.
+
+All signals are self-described:
+* OnCheckpointAchievedSignal
+* OnLoseCheckpointSignal
+* OnRaceStartSignal
+* OnStarFailedSignal
 
 ## How to make your level ##
 
+* Create new scene;
+* Go to `Racing -> Settings`.
+**Comming soon**
+* Next, you need to create button in the main menu and setup level num.
+* Done!
 
 ## What should be redo ##
 
@@ -38,3 +66,5 @@ The game consists of modules (player profile, preloader, main menu, etc). You ca
 * Car physic can be better;
 * Assets can be not optimal;
 * BUG: Tires trails can change color sometimes;
+* Almost all assets used Standart shader, it's very bed for performance;
+* Post processing can be not optimal;
