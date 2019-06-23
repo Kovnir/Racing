@@ -66,6 +66,18 @@ When you pass the level with more start than early, your ghost will be recorded.
 
 Game take position and rotation value every 0.5 seconds. It's enough and looks great even without interpolation!
 
+### Surfaces ###
+
+There is a 3 types of surfaces:
+
+| Type  | Acceleration | Turns | Slowdown | Drift |
+| ------------- | ------------- | ----- | ----- | ----- |
+| `Asphalt`  | hight  | hight | low | meduim |
+| `Grass`  | medium  | low | medium | low |
+| `Ice` | low  | low | low | hight |
+
+
+
 ## How to make your level ##
 
 * Create a new scene;
