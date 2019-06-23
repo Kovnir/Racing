@@ -28,6 +28,7 @@ public class ProjectInstaller : MonoInstaller
         Container.DeclareSignal<OnFinishAchievedSignal>();
         Container.DeclareSignal<OnLevelFinishedSignal>();
         Container.DeclareSignal<OnTakeCheckpointSignal>();
+        Container.DeclareSignal<OnPostProcessingSettingsChangedSignal>();
 
         SignalBusInstaller.Install(Container);
     }

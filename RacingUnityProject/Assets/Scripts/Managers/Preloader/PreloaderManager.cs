@@ -10,6 +10,10 @@ public class PreloaderManager
     public void Preloading()
     {
         //wait 1 second to see preloader.
-        FastTweener.Schedule(1, () => { playerProfileManager.Load(() => { loaderViewManager.LoadMainMenu(); }); });
+        FastTweener.Schedule(1, () =>
+        {
+            playerProfileManager.Load();
+            loaderViewManager.LoadMainMenu();
+        });
     }
 }

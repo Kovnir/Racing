@@ -682,6 +682,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &711187021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 42161599, guid: 8bfe9c2023ae64bc29807f8444d9c036,
+    type: 3}
+  m_PrefabInstance: {fileID: 3984850094285963668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &978140736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1737,6 +1749,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1660933397, guid: 8bfe9c2023ae64bc29807f8444d9c036, type: 3}
+      propertyPath: m_Name
+      value: EscMenuCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660933402, guid: 8bfe9c2023ae64bc29807f8444d9c036, type: 3}
+      propertyPath: postProcessingText
+      value: 
+      objectReference: {fileID: 711187021}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfe9c2023ae64bc29807f8444d9c036, type: 3}
 --- !u!1001 &5283613230259588889

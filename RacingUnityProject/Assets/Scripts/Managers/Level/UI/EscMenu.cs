@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
@@ -9,7 +10,10 @@ using Zenject;
 public class EscMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private TextMeshProUGUI postProcessingText;
     [InjectOptional] private LoaderViewManager loaderViewManager;
+    [Inject] private PlayerProfileManager playerProfileManager;
+    
     
     [UsedImplicitly]
     public void OnResumeClick()
@@ -31,11 +35,14 @@ public class EscMenu : MonoBehaviour
         loaderViewManager.LoadMainMenu();
     }
     
+    [UsedImplicitly]
     public void OnPostProcessingClick()
     {
-        
+        playerProfileManager.ChangePostProcessingState();
+        UpdatePostProcessingButtonText();
     }
     
+    [UsedImplicitly]
     public void OnQuitClick()
     {
 #if UNITY_EDITOR
@@ -60,5 +67,15 @@ public class EscMenu : MonoBehaviour
     {
         Time.timeScale = isPause ? 0 :1;
         panel.SetActive(isPause);
+        if (isPause)
+        {
+            UpdatePostProcessingButtonText();
+        }
+    }
+
+    private void UpdatePostProcessingButtonText()
+    {
+        bool isPostProcessingEnabled = playerProfileManager.GetPostProcessingState();
+        postProcessingText.text = (isPostProcessingEnabled ? "Disable" : "Enable") + " Post Processing";
     }
 }
