@@ -14,7 +14,7 @@ Tweener - [FastTweener](https://assetstore.unity.com/packages/tools/animation/fa
 
 JSON - [Json .NET fro Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347).
 
-Also was used a lot of free models assets and sounds. Two shaders was taken from my another project and updated.
+Also was used a lot of free models assets and sounds. Two shaders were taken from my other project.
 
 The game consists of modules (player profile, preloader, main menu, etc). You can find each module in `Scripts/Modules` folder.
 
@@ -62,10 +62,9 @@ Mobile input was made with Unity's standard `Cross Platform Input`.
 
 ### Ghost-Rider ###
 
-When you pass the level with more start than early, your gost will be recorded. Than, when you open the level, ghost will rides with you!
+When you pass the level with more start than early, your ghost will be recorded. Then, when you open the level, the ghost will ride with you!
 
-Game take position and rotatoon value every 0.5 seconds. It's enought and look great even visout interpolation!
-
+Game take position and rotation value every 0.5 seconds. It's enough and looks great even without interpolation!
 
 ## How to make your level ##
 
@@ -78,7 +77,7 @@ Game take position and rotatoon value every 0.5 seconds. It's enought and look g
 * You need to place start point and finish point. You can find it in `Prefabs` folder;
 * You need to set `Checkpoint`. You can find it in `Prefabs` folder. Copy it to your scene and place wherever you want. When you have done, set `Index` values for each checkpoint;
 * Go to `Racing -> Settings`, select `Levels` tab and push `Create New Level` button;
-* Setup time values for each stars and set level name;
+* Setup time values for each star and set level name;
 * Next, you need to create a button in the main menu and setup level num.
 * Done!
 
@@ -87,9 +86,9 @@ Game take position and rotatoon value every 0.5 seconds. It's enought and look g
 * Player Profile should be saved to Persistent Data instead of Player Prefs;
 * Player Profile should be encrypted;
 * Car physic can be better;
-* Hud manager should be devided to Hud manager and Timer/Start Manager. This class has do too lot of responsibilities;
+* Hud Manager should be divided into Hud Manager and Timer/Start Manager. This class has do too lot of responsibilities;
 * Assets can be not optimal;
-* BUG: Tires trails has visual artifacts;
+* BUG: Tires trails have visual artifacts;
 * Almost all assets used Standart shader, it's very bad for performance;
 * Post processing can be not optimal;
 * Loader module should show loading screen and work asynchronously;
