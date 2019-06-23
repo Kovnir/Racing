@@ -105,3 +105,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  straightColor: {r: 0.68235296, g: 1, b: 0, a: 0.69803923}

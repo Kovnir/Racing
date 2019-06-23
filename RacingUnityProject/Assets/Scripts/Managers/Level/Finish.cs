@@ -7,6 +7,12 @@ using Zenject;
 public class Finish : MonoBehaviour
 {
     [Inject] private SignalBus signalBus;
+    [Inject] private LevelManager levelManager;
+
+    private void Awake()
+    {
+        levelManager.RegisterFinish(this);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,5 +20,14 @@ public class Finish : MonoBehaviour
         {
             signalBus.Fire<OnFinishAchievedSignal>();
         }
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Show()
+    {
+        gameObject.SetActive(true);
     }
 }

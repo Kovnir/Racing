@@ -17,7 +17,8 @@ public class LevelManager : MonoBehaviour
     [Inject] private SignalBus signalBus;
     
     private List<CheckPoint> checkPoints = new List<CheckPoint>();
-
+    private Finish finish;
+    
     private int nextCheckpoint = 0;
     private bool levelEnded;
     
@@ -36,7 +37,16 @@ public class LevelManager : MonoBehaviour
             {
                 x.CheckPoint.Close();
                 nextCheckpoint++;
-                signalBus.Fire<OnTakeCheckpointSignal>();                
+                signalBus.Fire<OnTakeCheckpointSignal>();
+                if (checkPoints.Count > nextCheckpoint + 1)
+                {
+                    checkPoints[nextCheckpoint].ShowStraight();
+                    checkPoints[nextCheckpoint + 1].Show();
+                }
+                else
+                {
+                    finish.Show();
+                }
             }
             else
             {
@@ -94,6 +104,22 @@ public class LevelManager : MonoBehaviour
             index++;
         }
         nextCheckpoint = 0;
+
+        if (finish == null)
+        {
+            Debug.LogError("Finish not registred!");
+        }
+        
+        for (int i = 2; i < checkPoints.Count; i++)
+        {
+            checkPoints[i].Hide();
+        }
+        checkPoints[0].ShowStraight();
+
+        if (checkPoints.Count > 1)
+        {
+            finish.Hide();
+        }
     }
 
 
@@ -108,6 +134,15 @@ public class LevelManager : MonoBehaviour
     public void RegisterCheckPoint(CheckPoint checkPoint)
     {
         checkPoints.Add(checkPoint);
+    }
+    public void RegisterFinish(Finish finish)
+    {
+        if (this.finish != null)
+        {
+            Debug.LogError("There is more than 1 finish in the level");
+            return;
+        }
+        this.finish = finish;
     }
 
     public int GetCheckpointsCount()
