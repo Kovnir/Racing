@@ -166,4 +166,9 @@ public class GameHudManager : MonoBehaviour
 
         arrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, realValue));
     }
+
+    public void OnDestroy()
+    {
+        loseCheckpointTween.Kill();
+    }
 }

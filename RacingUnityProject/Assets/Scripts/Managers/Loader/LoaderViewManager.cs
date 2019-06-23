@@ -11,12 +11,13 @@ namespace DefaultNamespace
         [Inject(Id = "LevelSceneName")] private string levelSceneName;
         [Inject(Id = "MainMenuSceneName")] private string mainMenuSceneName;
         [Inject] private GameSettings gameSettings;
-        
+        private int lastLevelNum;
         
         public void LoadLevel(int levelNum)
         {
             //wait sec
             //show loading screen
+            lastLevelNum = levelNum;
             zenjectSceneLoader.LoadScene(levelSceneName, LoadSceneMode.Single, container =>
             {
                 container.Bind<int>().WithId("levelNum").FromInstance(levelNum);
@@ -25,7 +26,12 @@ namespace DefaultNamespace
             //wait sec
             //Hide loading screen
 
-            //fire singal
+            //fire signal
+        }
+        
+        public void ReloadLevel()
+        {
+            LoadLevel(lastLevelNum);
         }
 
         public void LoadMainMenu()

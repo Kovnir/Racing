@@ -15,7 +15,8 @@ public class EscMenu : MonoBehaviour
     
     public void OnRestartClick()
     {
-        
+        Time.timeScale = 1;
+        loaderViewManager.ReloadLevel();        
     }
     
     public void OnMainMenuClick()

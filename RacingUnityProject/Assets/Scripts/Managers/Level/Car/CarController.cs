@@ -213,7 +213,7 @@ public class CarController : MonoBehaviour
     private float timeAfterTurningOver;
     private void CheckTurningOver()
     {
-        if (timeAfterTurningOver >= 3)
+        if (timeAfterTurningOver >= 2)
         {
             bus.Fire(new OnLevelFailedSignal(OnLevelFailedSignal.FailReason.CarCrushed));
         }
