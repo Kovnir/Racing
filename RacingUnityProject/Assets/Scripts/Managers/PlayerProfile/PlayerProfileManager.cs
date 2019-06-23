@@ -10,14 +10,14 @@ using Zenject;
 //todo crypt save data
 public class PlayerProfileManager
 {
-    private const string PROGRESS = "ProgressPrefs";
+    public const string PROGRESS_KEY = "ProgressPrefs";
     private PlayerProfile profile;
     [Inject] private SignalBus bus;
 
     
     public void Load()
     {
-        string str = PlayerPrefs.GetString(PROGRESS);
+        string str = PlayerPrefs.GetString(PROGRESS_KEY);
         profile = new PlayerProfile();
         if (!string.IsNullOrEmpty(str))
         {
@@ -55,7 +55,7 @@ public class PlayerProfileManager
 
     private void Save()
     {
-        PlayerPrefs.SetString(PROGRESS, JObject.FromObject(profile).ToString());
+        PlayerPrefs.SetString(PROGRESS_KEY, JObject.FromObject(profile).ToString());
     }
 
     public void ChangeCameraModeState()

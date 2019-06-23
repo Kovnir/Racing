@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
+using Zenject;
 
 public class SettingsEditorWindow : EditorWindow
 {
@@ -28,12 +29,21 @@ public class SettingsEditorWindow : EditorWindow
     static void Init()
     {
         SettingsEditorWindow window = (SettingsEditorWindow) GetWindow(typeof(SettingsEditorWindow));
-        gameSettings = Resources.Load<GameSettings>("GameSettings");
+        LoadSettings();
         window.Show();
+    }
+
+    private static void LoadSettings()
+    {
+        gameSettings = Resources.Load<GameSettings>("GameSettings");
     }
 
     void OnGUI()
     {
+        if (gameSettings == null)
+        {
+            LoadSettings();
+        }
         if (titleStyle == null)
         {
             titleStyle = new GUIStyle(GUI.skin.label)
@@ -72,13 +82,17 @@ public class SettingsEditorWindow : EditorWindow
 
     private void DrawGeneralMenu()
     {
-        if (BigButton("Add Level GameObjects to Current Scene"))
+        if (BigButton("Add LevelContext Prefab to Current Scene"))
         {
-            throw new NotImplementedException();
+            SceneContext levelContext = Resources.Load<SceneContext>("LevelContext");
+            var obj = EditorUtility.InstantiatePrefab(levelContext);
+            Undo.RegisterCreatedObjectUndo(obj, "Level Context");
+            EditorUtility.DisplayDialog("Add LevelContext Prefab to Current Scene", "LevelContext Prefab was was successfully added to current scene!", "Ok");
         }
         if (BigButton("Clear Saves"))
         {
-            throw new NotImplementedException();
+            PlayerPrefs.SetString(PlayerProfileManager.PROGRESS_KEY, null);
+            EditorUtility.DisplayDialog("Remove Saves", "Save was successfully removed!", "Ok");
         }
     }
     
