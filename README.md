@@ -56,6 +56,13 @@ All signals are self-described:
 * Create a new scene;
 * Go to `Racing -> Settings`.
 **Coming soon**
+* You need to just create all environment with colliders. No addition knowledge needed!
+* For ice and grass you can use prefabs `Ice` and `Grass` from `Prefabs` folder;
+* For road use items from `Prefabs/Road` folder;
+* You need to place start point and finish point. You can find it in `Prefabs` folder;
+* You need to set `Checkpoint`. You can find it in `Prefabs` folder. Copy it to your scene and place wherever you want. When you have done, set `Index` values for each checkpoint;
+* Go to `Racing -> Settings`, select `Levels` tab and push `Create New Level` button;
+* Setup time values for each stars and set level name;
 * Next, you need to create a button in the main menu and setup level num.
 * Done!
 
@@ -69,3 +76,4 @@ All signals are self-described:
 * Almost all assets used Standart shader, it's very bad for performance;
 * Post processing can be not optimal;
 * Loader module should show loading screen and work asynchronously;
+* It was tested only on MAC Pro 2017.
