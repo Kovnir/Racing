@@ -1,16 +1,14 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using Cinemachine;
-using Kovnir.FastTweener;
+using Managers.Camera;
 using Signals;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 using Zenject;
 
 public class CameraManager : MonoBehaviour
-{    
+{
     [Inject] private DiContainer container;
     [Inject] private SignalBus bus;
     [Inject] private PlayerProfileManager playerProfileManager;
@@ -21,8 +19,9 @@ public class CameraManager : MonoBehaviour
 
     private List<Transform> targets = new List<Transform>();
     private Camera camera;
-    private MethodInfo cinemachineUpdate;
-    
+
+    private CameraMode cameraMode;
+
     private void Awake()
     {
         //setup postprocessing
@@ -30,6 +29,14 @@ public class CameraManager : MonoBehaviour
         UpdatePostProcessing();
         bus.Subscribe<OnPostProcessingSettingsChangedSignal>(UpdatePostProcessing);
         camera = Camera.main;
+        UpdateCameraMode();
+        bus.Subscribe<OnCameraModeChangedSignal>(UpdateCameraMode);
+    }
+
+    private void UpdateCameraMode()
+    {
+        cameraMode = playerProfileManager.GetCameraModeState();
+        cinemachineVirtualCamera.gameObject.SetActive(cameraMode == CameraMode.Cinemachine);
     }
 
     private void UpdatePostProcessing()
@@ -44,37 +51,55 @@ public class CameraManager : MonoBehaviour
         //setup cinemachine
         cinemachineVirtualCamera.Follow = car.transform;
         cinemachineVirtualCamera.m_LookAt = car.transform; //depends on type
-        cinemachineUpdate = typeof(CinemachineVirtualCamera).GetMethod("SetStateRawPosition", BindingFlags.NonPublic | BindingFlags.Instance);
 
-//        targetGroup.AddMember(car.transform, 10, 1);
-//        cinemachineVirtualCamera.LookAt = car.transform;        
     }
 
-    [SerializeField]
-    private Vector3 cameraOffsetPosition = new Vector3(0, 5, -20);
-    [SerializeField]
-    private float moveInterpolateFactor = 5;
+    [SerializeField] private Vector3 cameraOffsetPosition = new Vector3(0, 5, -20);
+    [SerializeField] private float moveInterpolateFactor = 5;
 
     private float cameraAdditionalOffset;
 
     public float cameraAdditionalOffsetPerSecond;
 
+    //how high camera should fly depending on length to car
     public float xCoef;
-    
+
     private void LateUpdate()
+    {
+        switch (cameraMode)
+        {
+            case CameraMode.Cinemachine:
+                return;
+            case CameraMode.Simple:
+                ProcessSimpleCamera(cameraOffsetPosition);
+                break;
+            case CameraMode.Fallow:
+                ProcessFallowCamera();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void ProcessSimpleCamera(Vector3 cameraLocalPostition)
+    {
+        var cameraPos = car.transform.TransformPoint(cameraLocalPostition);
+        camera.transform.position =
+            Vector3.Slerp(camera.transform.position, cameraPos, moveInterpolateFactor * Time.deltaTime);
+
+        camera.transform.LookAt(car.transform);
+    }
+
+    private void ProcessFallowCamera()
     {
         //if all object are out of screen - zoom out
         //if all object are in screen, and no objects in 20% border - zoom in
         //else - do nothing
-        
         CalculateZoom();
 
-        Vector3 localCameraPos = cameraOffsetPosition - new Vector3(0,xCoef * cameraAdditionalOffset, cameraAdditionalOffset);
-        
-        var cameraPos = car.transform.TransformPoint(localCameraPos);
-        camera.transform.position = Vector3.Slerp(camera.transform.position,cameraPos, moveInterpolateFactor * Time.deltaTime);
-      
-        camera.transform.LookAt(car.transform);
+        Vector3 localCameraPos =
+            cameraOffsetPosition - new Vector3(0, xCoef * cameraAdditionalOffset, cameraAdditionalOffset);
+        ProcessSimpleCamera(localCameraPos);
     }
 
     private void CalculateZoom()
@@ -85,7 +110,8 @@ public class CameraManager : MonoBehaviour
         foreach (var target in targets)
         {
             Vector3 screenPoint = camera.WorldToViewportPoint(target.position);
-            bool onScreen = screenPoint.z > 0f && screenPoint.x > 0.2f && screenPoint.x < 0.8f && screenPoint.y > 0.2f &&
+            bool onScreen = screenPoint.z > 0f && screenPoint.x > 0.2f && screenPoint.x < 0.8f &&
+                            screenPoint.y > 0.2f &&
                             screenPoint.y < 0.8f;
             if (onScreen)
             {
@@ -129,7 +155,7 @@ public class CameraManager : MonoBehaviour
     {
         targets.Add(transform);
     }
-    
+
     public void RemoveTarget(Transform transform)
     {
         targets.Remove(transform);

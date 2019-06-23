@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
+using Managers.Camera;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +13,7 @@ public class EscMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI postProcessingText;
+    [SerializeField] private TextMeshProUGUI cameraModeText;
     [InjectOptional] private LoaderViewManager loaderViewManager;
     [Inject] private PlayerProfileManager playerProfileManager;
     
@@ -43,6 +46,13 @@ public class EscMenu : MonoBehaviour
     }
     
     [UsedImplicitly]
+    public void OnCameraModeClick()
+    {
+        playerProfileManager.ChangeCameraModeState();
+        UpdateCameraModeButtonText();
+    }
+    
+    [UsedImplicitly]
     public void OnQuitClick()
     {
 #if UNITY_EDITOR
@@ -70,6 +80,7 @@ public class EscMenu : MonoBehaviour
         if (isPause)
         {
             UpdatePostProcessingButtonText();
+            UpdateCameraModeButtonText();
         }
     }
 
@@ -77,5 +88,11 @@ public class EscMenu : MonoBehaviour
     {
         bool isPostProcessingEnabled = playerProfileManager.GetPostProcessingState();
         postProcessingText.text = (isPostProcessingEnabled ? "Disable" : "Enable") + " Post Processing";
+    }
+    
+    private void UpdateCameraModeButtonText()
+    {
+        CameraMode cameraMode = playerProfileManager.GetCameraModeState();
+        cameraModeText.text = "Camera Mode (" + cameraMode + ")";
     }
 }

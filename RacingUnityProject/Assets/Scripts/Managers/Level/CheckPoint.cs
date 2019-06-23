@@ -46,6 +46,5 @@ public class CheckPoint : MonoBehaviour
     public void ShowStraight()
     {
         material.color = straightColor;
-
     }
 }

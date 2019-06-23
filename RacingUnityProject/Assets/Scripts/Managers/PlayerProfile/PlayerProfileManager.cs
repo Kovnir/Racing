@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Managers.Camera;
 using Newtonsoft.Json.Linq;
 using Signals;
 using UnityEngine;
@@ -56,6 +58,47 @@ public class PlayerProfileManager
         PlayerPrefs.SetString(PROGRESS, JObject.FromObject(profile).ToString());
     }
 
+    public void ChangeCameraModeState()
+    {
+        if (profile == null) //in case we launch game without preloader
+        {
+            return;
+        }
+
+        switch (GetCameraModeState())
+        {
+            case CameraMode.Cinemachine:
+                ChangeCameraModeState(CameraMode.Simple);
+                break;
+            case CameraMode.Simple:
+                ChangeCameraModeState(CameraMode.Fallow);
+                break;
+            case CameraMode.Fallow:
+                ChangeCameraModeState(CameraMode.Cinemachine);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void ChangeCameraModeState(CameraMode cameraMode)
+    {
+        if (profile.Settings.CameraMode != cameraMode)
+        {
+            profile.Settings.CameraMode = cameraMode;
+            Save();
+            bus.Fire<OnCameraModeChangedSignal>();
+        }
+    }
+
+    public CameraMode GetCameraModeState()
+    {
+        if (profile == null) //in case we launch game without preloader
+        {
+            return CameraMode.Cinemachine;
+        }
+        return profile.Settings.CameraMode;
+    }
 }
 
 public class PlayerProfile
@@ -66,6 +109,7 @@ public class PlayerProfile
     public class PlayerSettings
     {
         public bool PostProcessing = true;
+        public CameraMode CameraMode = CameraMode.Cinemachine;
     }
 
     public class PlayerProgress

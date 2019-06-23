@@ -31,6 +31,7 @@ public class ProjectInstaller : MonoInstaller
         Container.DeclareSignal<OnLevelFinishedSignal>();
         Container.DeclareSignal<OnTakeCheckpointSignal>();
         Container.DeclareSignal<OnPostProcessingSettingsChangedSignal>();
+        Container.DeclareSignal<OnCameraModeChangedSignal>();
 
         SignalBusInstaller.Install(Container);
     }
