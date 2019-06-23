@@ -1737,26 +1737,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3984850094607754559, guid: 8bfe9c2023ae64bc29807f8444d9c036,
-        type: 3}
-      propertyPath: _scriptableObjectInstallers.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3984850094607754559, guid: 8bfe9c2023ae64bc29807f8444d9c036,
-        type: 3}
-      propertyPath: _scriptableObjectInstallers.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097014464893363652, guid: 8bfe9c2023ae64bc29807f8444d9c036,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097014464893363652, guid: 8bfe9c2023ae64bc29807f8444d9c036,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 60
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfe9c2023ae64bc29807f8444d9c036, type: 3}
 --- !u!1001 &5283613230259588889
