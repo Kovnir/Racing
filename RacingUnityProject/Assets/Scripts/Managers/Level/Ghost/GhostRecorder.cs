@@ -47,4 +47,9 @@ public class GhostRecorder : MonoBehaviour
         finished = true;
         return records;
     }
+//
+//    private void OnDestroy()
+//    {
+//        container.Unbind<GhostRecorder>();
+//    }
 }
