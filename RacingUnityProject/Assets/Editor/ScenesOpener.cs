@@ -13,10 +13,20 @@ public static class ScenesOpener
     {
         Open("MainMenuScene");        
     }
-    [MenuItem("Racing/Open Scene/Level")]
-    public static void OpenLevel()
+    [MenuItem("Racing/Open Scene/Levels/Level1")]
+    public static void OpenLevel1()
     {
-        Open("LevelScene");
+        Open("Level1");
+    }
+    [MenuItem("Racing/Open Scene/Levels/Level2")]
+    public static void OpenLevel2()
+    {
+        Open("Level2");
+    }
+    [MenuItem("Racing/Open Scene/Levels/Level3")]
+    public static void OpenLevel3()
+    {
+        Open("Level3");
     }
 
     private static void Open(string sceneName)
