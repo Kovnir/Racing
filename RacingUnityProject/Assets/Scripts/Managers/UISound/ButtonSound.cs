@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zenject;
 
 public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
@@ -10,7 +11,11 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     {
         if (soundManager != null)
         {
-            soundManager.ButtonHover();
+            //todo optimize it
+            if (GetComponent<Button>().interactable)
+            {
+                soundManager.ButtonHover();
+            }
         }
     }
 
