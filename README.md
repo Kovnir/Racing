@@ -18,6 +18,7 @@ Also was used a lot of free models assets and sounds. Two shaders were taken fro
 
 The game consists of modules (player profile, preloader, main menu, etc). You can find each module in `Scripts/Modules` folder.
 
+<img src="/Documentation/race.gif">
 
 ## Explanation ##
 
@@ -31,6 +32,8 @@ Here are 3 types of camera you can choose in `Esc Menu`:
 * Simple Camera - simple smooth fallowing camera made with code. 
 * Cinemachine Camera - camera made with cinemachine almost without code.
 * Following Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
+
+<img src="/Documentation/esc-menu.gif">
 
 ### Signals ###
 
@@ -65,6 +68,8 @@ Mobile input was made with Unity's standard `Cross Platform Input`.
 When you pass the level with more start than early, your ghost will be recorded. Then, when you open the level, the ghost will ride with you!
 
 Game take position and rotation value every 0.5 seconds. It's enough and looks great even without interpolation!
+
+<img src="/Documentation/road.gif">
 
 ### Surfaces ###
 
