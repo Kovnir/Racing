@@ -24,4 +24,4 @@ MonoBehaviour:
   - OneStarTime: 60
     TwoStarsTime: 50
     ThreeStarsTime: 40
-    SceneName: Level3
+    SceneName: level3
