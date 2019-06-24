@@ -18,7 +18,7 @@ Also was used a lot of free models assets and sounds. Two shaders were taken fro
 
 The game consists of modules (player profile, preloader, main menu, etc). You can find each module in `Scripts/Modules` folder.
 
-<img src="/Documentation/race.gif">
+<img src="/Documentation/race.gif" width="600px">
 
 ## Explanation ##
 
@@ -33,7 +33,7 @@ Here are 3 types of camera you can choose in `Esc Menu`:
 * Cinemachine Camera - camera made with cinemachine almost without code.
 * Following Camera - Simple camera, but it will always try to keep in screen two next checkpoints.
 
-<img src="/Documentation/esc-menu.gif">
+<img src="/Documentation/esc-menu.gif" width="600px">
 
 ### Signals ###
 
@@ -69,7 +69,7 @@ When you pass the level with more start than early, your ghost will be recorded.
 
 Game take position and rotation value every 0.5 seconds. It's enough and looks great even without interpolation!
 
-<img src="/Documentation/road.gif">
+<img src="/Documentation/road.gif" width="600px">
 
 ### Surfaces ###
 
@@ -113,6 +113,9 @@ You should collect 6 checkpoint and rich the finish, but a big part of the road 
 * Setup time values for each star and set level name;
 * Next, you need to create a button in the main menu and setup level num.
 * Done!
+
+<img src="/Documentation/editor.gif" width="600px">
+
 
 ## What should be redo ##
 
