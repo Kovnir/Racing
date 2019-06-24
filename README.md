@@ -26,6 +26,9 @@ The game consists of modules (player profile, preloader, main menu, etc). You ca
 
 Car physics made with `Wheel Colliders`. Standard Unit physics made 50% of work. Car controller code you can find in `CarController.cs` class.
 
+You can control the vehicle using `WASD` or `screen buttons` for mobile. The car goes into a skid, so don't push boost to match during turning. Car physics can be changed if tune `Wheel Colliders`, `Rigidbody`, and `Physic Materials` parameters.
+
+
 ### Camera ###
 
 Here are 3 types of camera you can choose in `Esc Menu`:
