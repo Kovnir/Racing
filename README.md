@@ -6,6 +6,8 @@ To Start using Racing Game Unity project open `Preloader` scene and press `Run`.
 
 Hint: You can find all useful scenes in the top menu `Racing -> Scenes`.
 
+Unity Version 2019.1.0f2
+
 The Project using [Zenject](https://github.com/modesttree/Zenject) for dependency injections and all game architecture was built around it.
 
 Music from [Ultimate Game Music Collection](https://assetstore.unity.com/packages/audio/music/orchestral/ultimate-game-music-collection-37351).
