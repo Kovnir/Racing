@@ -86,7 +86,7 @@ There is a 3 types of surfaces:
 | `Grass`  | medium  | low | medium | low |
 | `Ice` | low  | low | low | hight |
 
-When the car rides through the grass it generate particles and tire tracksю
+When the car rides through the grass it generate particles and tire tracks.
 
 ### Levels ###
 
